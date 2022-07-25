@@ -16,7 +16,7 @@ fun LoginScreen(){
         contentAlignment = Alignment.Center
     ){
         Text(text = "This is the log in sxreen", color = Color.White)
-            
+
 
     }
 }
