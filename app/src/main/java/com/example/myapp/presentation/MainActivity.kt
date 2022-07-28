@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.example.myapp.presentation.ui.theme.MyAppTheme
 import androidx.compose.material.Text
 import com.example.myapp.presentation.login.LoginScreen
+import com.example.myapp.presentation.register.RegisterScreen
 import com.example.myapp.util.Navigation
 
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginScreen()
+                    Navigation()
                 }
 
             }

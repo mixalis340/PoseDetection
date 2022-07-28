@@ -18,29 +18,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.myapp.presentation.login.LoginScreen
+import com.example.myapp.presentation.register.RegisterScreen
 
 
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
     NavHost(navController = navController,
-            startDestination = Screen.Mainscreen.route){
+            startDestination = Screen.LoginScreen.route){
 
-            composable(route = Screen.Mainscreen.route){
-                    MainScreen(navController = navController)
+            composable(route = Screen.LoginScreen.route){
+                    LoginScreen(navController = navController)
             }
-            composable(route= Screen.LoginScreen.route + "/{name}",
-                arguments = listOf(
-                    navArgument("name"){
-                        type = NavType.StringType
-                        defaultValue = "Mike"
-                        nullable = true
-                    }
-                )
-            )
-            { entry ->
-                SigninScreen(name = entry.arguments?.getString("name") )
-            }
+        composable(route = Screen.RegisterScreen.route){
+            RegisterScreen(navController = navController)
+        }
 
     }
 }
