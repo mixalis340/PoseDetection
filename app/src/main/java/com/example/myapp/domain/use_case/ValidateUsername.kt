@@ -1,6 +1,7 @@
 package com.example.myapp.domain.use_case
 
 import android.util.Patterns
+import com.example.myapp.Constants
 
 class ValidateUsername {
 
@@ -12,10 +13,10 @@ class ValidateUsername {
                 errorMessage = "This field can't be empty"
             )
         }
-        if(trimmedUsername.length < 3) {
+        if(trimmedUsername.length < Constants.MIN_USERNAME_LENGTH) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The minimum length is 3"
+                errorMessage = "The minimum length is ${Constants.MIN_USERNAME_LENGTH}"
             )
         }
         return ValidationResult(

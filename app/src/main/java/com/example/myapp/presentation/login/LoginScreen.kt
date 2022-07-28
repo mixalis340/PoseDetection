@@ -25,7 +25,6 @@ import com.example.myapp.presentation.ui.theme.SpaceLarge
 import com.example.myapp.presentation.ui.theme.SpaceMedium
 import com.example.myapp.presentation.util.Screen
 
-
 @Composable
 fun LoginScreen(navController: NavController){
 
@@ -70,7 +69,7 @@ fun LoginScreen(navController: NavController){
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
                 text = state.email,
-                hint = "E-mail",
+                hint = stringResource(id = R.string.email_hint),
                 onValueChange = {
                                 viewModel.onEvent(LoginEvent.EmailChanged(it))
                 },
@@ -80,7 +79,7 @@ fun LoginScreen(navController: NavController){
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
                 text = state.password,
-                hint = "Password",
+                hint = stringResource(id = R.string.password_hint),
                 onValueChange = {
                     viewModel.onEvent(LoginEvent.PasswordChanged(it))
                 },
@@ -96,7 +95,7 @@ fun LoginScreen(navController: NavController){
                     .align(Alignment.End)
             ) {
                 Text(
-                    text = "Login",
+                    text = stringResource(id = R.string.login),
                     color = MaterialTheme.colors.onPrimary
                 )
             }
@@ -137,13 +136,13 @@ fun LoginScreen(navController: NavController){
         }
         Text(
             text = buildAnnotatedString {
-                append("Don't have an account yet?")
+                append(stringResource(id = R.string.dont_have_an_account_yet))
                 append(" ")
                 withStyle(style = SpanStyle(
                     color = MaterialTheme.colors.primary
                     )
                 ){
-                    append("Sign up!")
+                    append(stringResource(id = R.string.sign_up))
                 }
             },
             style = MaterialTheme.typography.body1,

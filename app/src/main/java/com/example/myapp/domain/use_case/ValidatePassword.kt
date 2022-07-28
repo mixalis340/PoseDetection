@@ -1,7 +1,7 @@
 package com.example.myapp.domain.use_case
 
 import android.util.Patterns
-
+import com.example.myapp.Constants
 
 class ValidatePassword {
 
@@ -12,10 +12,10 @@ class ValidatePassword {
                 errorMessage = "This field can't be empty"
             )
         }
-        if(password.length < 4) {
+        if(password.length < Constants.MIN_PASSWORD_LENGTH) {
             return  ValidationResult(
                 successful = false,
-                errorMessage = "The minimum length is 4"
+                errorMessage = "The minimum length is ${Constants.MIN_PASSWORD_LENGTH}"
             )
         }
         val digitsInPassword = password.any { it.isDigit() }

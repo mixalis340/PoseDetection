@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.myapp.R
 import com.example.myapp.presentation.components.StandardTextField
 import com.example.myapp.presentation.login.LoginEvent
 import com.example.myapp.presentation.login.LoginViewModel
@@ -61,7 +63,7 @@ fun RegisterScreen(navController: NavController) {
                 .align(Alignment.Center)
         ) {
             Text(
-                text = "Register",
+                text = stringResource(id = R.string.register),
                 style = MaterialTheme.typography.h1
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -70,7 +72,7 @@ fun RegisterScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
                 text = state.email,
-                hint = "E-mail",
+                hint = stringResource(id = R.string.email_hint),
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.EmailChanged(it))
                 },
@@ -80,7 +82,7 @@ fun RegisterScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
                 text = state.username,
-                hint = "Username",
+                hint = stringResource(id = R.string.username_hint),
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.UsernameChanged(it))
                 },
@@ -90,7 +92,7 @@ fun RegisterScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
                 text = state.password,
-                hint = "Password",
+                hint = stringResource(id = R.string.password_hint),
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.PasswordChanged(it))
                 },
@@ -106,20 +108,20 @@ fun RegisterScreen(navController: NavController) {
                     .align(Alignment.End)
             ) {
                 Text(
-                    text = "Register",
+                    text = stringResource(id = R.string.register),
                     color = MaterialTheme.colors.onPrimary
                 )
             }
         }
         Text(
             text = buildAnnotatedString {
-                append("Already have an account?")
+                append(stringResource(id = R.string.already_have_an_account))
                 append(" ")
                 withStyle(style = SpanStyle(
                     color = MaterialTheme.colors.primary
                 )
                 ){
-                    append("Sign in!")
+                    append(stringResource(id = R.string.sign_in))
                 }
             },
             style = MaterialTheme.typography.body1,
