@@ -25,6 +25,12 @@ val Typography = Typography(
         color = TextWhite
     ),
 
+    body2 = TextStyle(
+        fontFamily = quicksand,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        color = TextWhite
+    ),
     h1 = TextStyle(
         fontFamily = quicksand,
         fontWeight = FontWeight.Bold,

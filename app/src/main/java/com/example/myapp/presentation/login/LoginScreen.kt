@@ -2,22 +2,17 @@ package com.example.myapp.presentation.login
 
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
@@ -28,9 +23,7 @@ import com.example.myapp.R
 import com.example.myapp.presentation.components.StandardTextField
 import com.example.myapp.presentation.ui.theme.SpaceLarge
 import com.example.myapp.presentation.ui.theme.SpaceMedium
-import com.example.myapp.presentation.ui.theme.SpaceSmall
-import com.example.myapp.util.Screen
-import kotlin.math.sinh
+import com.example.myapp.presentation.util.Screen
 
 
 @Composable
@@ -39,13 +32,14 @@ fun LoginScreen(navController: NavController){
         val viewModel = viewModel<LoginViewModel>()
         val state = viewModel.state
         val context = LocalContext.current
+
         LaunchedEffect(key1 = context)   {
             viewModel.validationEvents.collect { event ->
                 when(event) {
                     is LoginViewModel.ValidationEvent.Success -> {
                         Toast.makeText(
                             context,
-                            "IT is ok",
+                            "Login successful",
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -74,33 +68,30 @@ fun LoginScreen(navController: NavController){
                 style = MaterialTheme.typography.h1
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
-            var textFieldState1 by remember {
-                mutableStateOf("")
-            }
-            var textFieldState2 by remember {
-                mutableStateOf("")
-            }
-
             StandardTextField(
-                text = textFieldState1,
+                text = state.email,
                 hint = "E-mail",
                 onValueChange = {
-                                textFieldState1 = it
+                                viewModel.onEvent(LoginEvent.EmailChanged(it))
                 },
-                singleLine = true
+                singleLine = true,
+                error = state.emailError.orEmpty()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
-                text = textFieldState2,
+                text = state.password,
                 hint = "Password",
                 onValueChange = {
-                    textFieldState2 = it
+                    viewModel.onEvent(LoginEvent.PasswordChanged(it))
                 },
                 singleLine = true,
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                error = state.passwordError.orEmpty()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
-            Button(onClick = {},
+            Button(onClick = {
+                viewModel.onEvent(LoginEvent.Submit)
+            },
                 modifier = Modifier
                     .align(Alignment.End)
             ) {
@@ -110,9 +101,7 @@ fun LoginScreen(navController: NavController){
                 )
             }
 
-
-
-            /* ERROS HANDLING!!
+            /*ERROR HANDLING EXAMPLE!!
             TextField(
                 value = state.email,
                 onValueChange = {

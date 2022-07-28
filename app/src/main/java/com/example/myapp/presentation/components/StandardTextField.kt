@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun StandardTextField(
@@ -62,10 +63,20 @@ fun StandardTextField(
                 }
             }
         },
+        isError = error !="",
         modifier = Modifier
             .fillMaxWidth(),
-
-
     )
+    if (error.isNotEmpty()) {
+        Text(
+            text = error,
+            style = MaterialTheme.typography.body2,
+            color = MaterialTheme.colors.error,
+            textAlign = TextAlign.End,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+
+    }
 
 }

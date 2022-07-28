@@ -1,4 +1,4 @@
-package com.example.myapp.util
+package com.example.myapp.presentation.util
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -13,11 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.myapp.presentation.login.LoginScreen
 import com.example.myapp.presentation.register.RegisterScreen
 
