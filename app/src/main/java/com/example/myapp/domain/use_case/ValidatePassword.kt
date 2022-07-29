@@ -2,6 +2,8 @@ package com.example.myapp.domain.use_case
 
 import android.util.Patterns
 import com.example.myapp.Constants
+import com.example.myapp.R
+import com.example.myapp.presentation.UiText
 
 class ValidatePassword {
 
@@ -9,13 +11,16 @@ class ValidatePassword {
         if(password.isBlank()) {
             return  ValidationResult(
                 successful = false,
-                errorMessage = "This field can't be empty"
+                errorMessage = UiText.StringResource(R.string.this_field_cant_be_empty)
             )
         }
         if(password.length < Constants.MIN_PASSWORD_LENGTH) {
             return  ValidationResult(
                 successful = false,
-                errorMessage = "The minimum length is ${Constants.MIN_PASSWORD_LENGTH}"
+                errorMessage = UiText.StringResource(
+                    resId = R.string.min_name_length_error,
+                    Constants.MIN_PASSWORD_LENGTH
+                )
             )
         }
         val digitsInPassword = password.any { it.isDigit() }
@@ -23,7 +28,7 @@ class ValidatePassword {
         if(!digitsInPassword || !capitalLettersInPassword) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The password needs to contain at least one uppercase letter and one digit"
+                errorMessage = UiText.StringResource(R.string.invalid_password)
             )
         }
         return ValidationResult(

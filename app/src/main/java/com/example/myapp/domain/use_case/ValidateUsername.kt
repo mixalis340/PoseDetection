@@ -2,6 +2,8 @@ package com.example.myapp.domain.use_case
 
 import android.util.Patterns
 import com.example.myapp.Constants
+import com.example.myapp.R
+import com.example.myapp.presentation.UiText
 
 class ValidateUsername {
 
@@ -10,17 +12,21 @@ class ValidateUsername {
         if(trimmedUsername.isBlank()) {
             return  ValidationResult(
                 successful = false,
-                errorMessage = "This field can't be empty"
+                errorMessage = UiText.StringResource(R.string.this_field_cant_be_empty)
             )
         }
         if(trimmedUsername.length < Constants.MIN_USERNAME_LENGTH) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The minimum length is ${Constants.MIN_USERNAME_LENGTH}"
+                errorMessage = UiText.StringResource(
+                    resId = R.string.input_too_short,
+                    Constants.MIN_USERNAME_LENGTH
+                )
             )
         }
         return ValidationResult(
-            successful = true
+            successful = true,
+
         )
     }
 }

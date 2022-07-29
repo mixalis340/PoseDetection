@@ -19,7 +19,7 @@ fun StandardTextField(
     text: String = "",
     hint: String = "",
     onValueChange: (String) -> Unit,
-    error: String = "",
+    error: String? = null,
     singleLine: Boolean,
     keyboardType: KeyboardType = KeyboardType.Text
 ){
@@ -63,11 +63,11 @@ fun StandardTextField(
                 }
             }
         },
-        isError = error !="",
+        isError = error != null,
         modifier = Modifier
             .fillMaxWidth(),
     )
-    if (error.isNotEmpty()) {
+    if (error != null) {
         Text(
             text = error,
             style = MaterialTheme.typography.body2,
@@ -76,7 +76,6 @@ fun StandardTextField(
             modifier = Modifier
                 .fillMaxWidth()
         )
-
     }
 
 }

@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.example.myapp.presentation.login.LoginScreen
 import com.example.myapp.presentation.ui.theme.MyAppTheme
 import com.example.myapp.presentation.util.Navigation
 
@@ -21,9 +23,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Navigation()
+                   Navigation()
                 }
-
             }
         }
     }

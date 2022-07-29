@@ -64,7 +64,6 @@ class RegisterViewModel(
         viewModelScope.launch {
             validationEventChanel.send(ValidationEvent.Success)
         }
-
     }
 
     sealed class ValidationEvent {

@@ -74,7 +74,7 @@ fun LoginScreen(navController: NavController){
                                 viewModel.onEvent(LoginEvent.EmailChanged(it))
                 },
                 singleLine = true,
-                error = state.emailError.orEmpty()
+                error = state.emailError?.asString()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
@@ -85,7 +85,7 @@ fun LoginScreen(navController: NavController){
                 },
                 singleLine = true,
                 keyboardType = KeyboardType.Password,
-                error = state.passwordError.orEmpty()
+                error = state.passwordError?.asString()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             Button(onClick = {
