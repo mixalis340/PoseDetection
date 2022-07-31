@@ -17,7 +17,7 @@ class ValidateEmail {
         if(!Patterns.EMAIL_ADDRESS.matcher(trimmedEmail).matches()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = UiText.StringResource(R.string.indalid_email)
+                errorMessage = UiText.StringResource(R.string.invalid_email)
             )
         }
         return ValidationResult(

@@ -73,7 +73,7 @@ fun RegisterScreen(navController: NavController) {
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.EmailChanged(it))
                 },
-                singleLine = true,
+                keyboardType = KeyboardType.Email,
                 error = state.emailError?.asString()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -83,7 +83,6 @@ fun RegisterScreen(navController: NavController) {
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.UsernameChanged(it))
                 },
-                singleLine = true,
                 error = state.usernameError?.asString()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -93,7 +92,6 @@ fun RegisterScreen(navController: NavController) {
                 onValueChange = {
                     viewModel.onEvent(RegisterEvent.PasswordChanged(it))
                 },
-                singleLine = true,
                 keyboardType = KeyboardType.Password,
                 error = state.passwordError?.asString()
             )

@@ -74,7 +74,7 @@ fun LoginScreen(navController: NavController){
                 onValueChange = {
                                 viewModel.onEvent(LoginEvent.EmailChanged(it))
                 },
-                singleLine = true,
+                keyboardType = KeyboardType.Email,
                 error = state.emailError?.asString()
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -84,7 +84,6 @@ fun LoginScreen(navController: NavController){
                 onValueChange = {
                     viewModel.onEvent(LoginEvent.PasswordChanged(it))
                 },
-                singleLine = true,
                 keyboardType = KeyboardType.Password,
                 error = state.passwordError?.asString()
             )

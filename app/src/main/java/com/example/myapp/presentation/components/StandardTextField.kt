@@ -20,7 +20,7 @@ fun StandardTextField(
     hint: String = "",
     onValueChange: (String) -> Unit,
     error: String? = null,
-    singleLine: Boolean,
+    singleLine: Boolean = true,
     keyboardType: KeyboardType = KeyboardType.Text
 ){
     val isPasswordToggleDisplayed by remember {
