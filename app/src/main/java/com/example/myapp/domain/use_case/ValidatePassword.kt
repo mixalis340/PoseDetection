@@ -18,7 +18,7 @@ class ValidatePassword {
             return  ValidationResult(
                 successful = false,
                 errorMessage = UiText.StringResource(
-                    resId = R.string.min_name_length_error,
+                    resId = R.string.input_too_short,
                     Constants.MIN_PASSWORD_LENGTH
                 )
             )

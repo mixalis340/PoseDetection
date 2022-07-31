@@ -9,3 +9,5 @@ val LightGray = Color(0xFF606060)
 val HintGray = Color(0xFF6D6D6D)
 val TextGray = Color(0xFFA6A6A6)
 val MediumGray = Color(0xFF404040)
+
+

@@ -67,9 +67,6 @@ fun RegisterScreen(navController: NavController) {
                 style = MaterialTheme.typography.h1
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
-
-
-            Spacer(modifier = Modifier.height(SpaceMedium))
             StandardTextField(
                 text = state.email,
                 hint = stringResource(id = R.string.email_hint),
@@ -128,9 +125,7 @@ fun RegisterScreen(navController: NavController) {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .clickable {
-                    navController.navigate(
-                        Screen.LoginScreen.route
-                    )
+                    navController.popBackStack()
                 }
         )
     }

@@ -21,7 +21,6 @@ sealed class UiText {
         }
     }
 
-
     fun asString(context: Context): String {
         return when (this) {
             is DynamicString -> value

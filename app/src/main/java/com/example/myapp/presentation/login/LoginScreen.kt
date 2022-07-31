@@ -21,6 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapp.R
 import com.example.myapp.presentation.components.StandardTextField
+import com.example.myapp.presentation.profile.ProfileScreen
 import com.example.myapp.presentation.ui.theme.SpaceLarge
 import com.example.myapp.presentation.ui.theme.SpaceMedium
 import com.example.myapp.presentation.util.Screen
@@ -89,7 +90,7 @@ fun LoginScreen(navController: NavController){
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             Button(onClick = {
-                viewModel.onEvent(LoginEvent.Submit)
+                navController.navigate(Screen.MainScreen.route)
             },
                 modifier = Modifier
                     .align(Alignment.End)

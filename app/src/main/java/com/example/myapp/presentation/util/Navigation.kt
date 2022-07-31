@@ -13,24 +13,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.myapp.presentation.login.LoginScreen
+import com.example.myapp.presentation.profile.ProfileScreen
 import com.example.myapp.presentation.register.RegisterScreen
 
 
 @Composable
-fun Navigation(){
-    val navController = rememberNavController()
-    NavHost(navController = navController,
-            startDestination = Screen.LoginScreen.route){
+fun Navigation(navController: NavHostController){
 
-            composable(route = Screen.LoginScreen.route){
-                    LoginScreen(navController = navController)
-            }
+    NavHost(navController = navController,
+            startDestination = Screen.LoginScreen.route,
+            modifier = Modifier.fillMaxSize()
+        ){
+
+        composable(route = Screen.LoginScreen.route){
+            LoginScreen(navController = navController)
+        }
         composable(route = Screen.RegisterScreen.route){
             RegisterScreen(navController = navController)
+        }
+        composable(route = Screen.MainScreen.route){
+            com.example.myapp.presentation.main_screen.MainScreen(navController = navController)
+        }
+        composable(route = Screen.ProfileScreen.route){
+            ProfileScreen(navController = navController)
         }
 
     }
