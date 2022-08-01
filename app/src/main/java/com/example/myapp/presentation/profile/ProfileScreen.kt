@@ -11,9 +11,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.example.myapp.R
 import com.example.myapp.presentation.profile.components.BannerSection
+import com.example.myapp.presentation.profile.components.ProfileHeaderSection
+import com.example.myapp.presentation.profile.components.User
 import com.example.myapp.presentation.ui.theme.SpaceLarge
 import com.example.myapp.presentation.ui.theme.SpaceMedium
 
@@ -28,9 +31,16 @@ fun ProfileScreen(
         item {
             BannerSection(
                 modifier = Modifier
-                    .aspectRatio(2.5f)
+                    .aspectRatio(2.15f)
             )
-            Text(text = "das")
+        }
+        item {
+            ProfileHeaderSection(user = User(
+                profilePictureUrl = "",
+                username = "Michalis Ioannou",
+                description = "MediaPipe Pose is a ML solution for high-fidelity body pose tracking, inferring 33 3D landmarks and background segmentation mask on the whole body from RGB ..."
+                )
+            )
         }
     }
 }
