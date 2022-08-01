@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.myapp.presentation.EditProfileScreen
 import com.example.myapp.presentation.login.LoginScreen
 import com.example.myapp.presentation.profile.ProfileScreen
 import com.example.myapp.presentation.register.RegisterScreen
@@ -40,6 +41,9 @@ fun Navigation(navController: NavHostController){
         }
         composable(route = Screen.ProfileScreen.route){
             ProfileScreen(navController = navController)
+        }
+        composable(route = Screen.EditProfileScreen.route) {
+            EditProfileScreen(navController = navController)
         }
 
     }

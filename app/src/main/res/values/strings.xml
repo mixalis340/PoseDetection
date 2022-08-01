@@ -15,4 +15,7 @@
     <string name="invalid_password">The password needs to contain at least one uppercase letter and one number</string>
     <string name="min_name_length_error">The name must be at least %d characters long</string>
     <string name="banner_image">Banner</string>
+    <string name="back">Navigate back</string>
+    <string name="home">Home</string>
+    <string name="your_profile">Your profile</string>
 </resources>
