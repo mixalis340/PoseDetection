@@ -67,7 +67,7 @@ fun ProfileHeaderSection(
                     .size(30.dp)
             ) {
                 Icon(imageVector = Icons.Default.Edit,
-                    contentDescription ="das"
+                    contentDescription = null
                 )
             }
         }

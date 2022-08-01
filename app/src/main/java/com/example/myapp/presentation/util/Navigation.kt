@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.myapp.presentation.EditProfileScreen
+import com.example.myapp.presentation.edit_profile.EditProfileScreen
 import com.example.myapp.presentation.login.LoginScreen
 import com.example.myapp.presentation.profile.ProfileScreen
 import com.example.myapp.presentation.register.RegisterScreen
@@ -26,7 +26,7 @@ import com.example.myapp.presentation.register.RegisterScreen
 fun Navigation(navController: NavHostController){
 
     NavHost(navController = navController,
-            startDestination = Screen.LoginScreen.route,
+            startDestination = Screen.EditProfileScreen.route,
             modifier = Modifier.fillMaxSize()
         ){
 

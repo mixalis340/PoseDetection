@@ -18,4 +18,5 @@
     <string name="back">Navigate back</string>
     <string name="home">Home</string>
     <string name="your_profile">Your profile</string>
+    <string name="edit_your_profile">Edit your profile</string>
 </resources>
