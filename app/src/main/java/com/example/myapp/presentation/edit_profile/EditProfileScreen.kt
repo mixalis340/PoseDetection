@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
@@ -46,6 +50,15 @@ fun EditProfileScreen(
         StandardToolbar(
             showBackArrow = true,
             navController = navController,
+            navActions = {
+                         IconButton(onClick = { /*TODO*/ }) {
+                             Icon(
+                                 imageVector = Icons.Default.Check, 
+                                 contentDescription = stringResource(id = R.string.save_changes),
+                                 tint = MaterialTheme.colors.onBackground
+                             )
+                         }
+            },
             title = {
                 Text(
                     text = stringResource(id = R.string.edit_your_profile),
@@ -60,7 +73,6 @@ fun EditProfileScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -95,16 +107,19 @@ fun EditProfileScreen(
                     onValueChange = {
                         viewModel.onEvent(EditProfileEvent.UsernameChanged(it))
                     },
-                    error = state.usernameError?.asString()
+                    error = state.usernameError?.asString(),
+                    leadingIcon = Icons.Default.Person
                 )
                 Spacer(modifier = Modifier.height(SpaceMedium))
                 StandardTextField(
-                    text = state.email,
-                    hint = stringResource(id = R.string.email_hint),
+                    text = state.bio,
+                    hint = stringResource(id = R.string.bio_hint),
                     onValueChange = {
-                        viewModel.onEvent(EditProfileEvent.EmailChanged(it))
+                        viewModel.onEvent(EditProfileEvent.BioChanged(it))
                     },
-                    error = state.emailError?.asString()
+                    error = state.emailError?.asString(),
+                    leadingIcon =Icons.Default.Description,
+                    singleLine = false
                 )
             }
         }

@@ -7,10 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapp.domain.use_case.ValidateEmail
 import com.example.myapp.domain.use_case.ValidatePassword
 import com.example.myapp.domain.use_case.ValidateUsername
-import com.example.myapp.presentation.UiText
-import com.example.myapp.presentation.register.RegisterEvent
-import com.example.myapp.presentation.register.RegisterState
-import com.example.myapp.presentation.register.RegisterViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -19,7 +15,7 @@ import androidx.lifecycle.ViewModel
 class EditProfileViewModel(
     private  val validateEmail: ValidateEmail = ValidateEmail(),
     private  val validateUsername: ValidateUsername = ValidateUsername(),
-    private  val validatePassword: ValidatePassword = ValidatePassword()
+    //private  val validateBio: ValidateBio = ValidateBio()
 ): ViewModel() {
     var state by mutableStateOf(EditProfileState())
 
@@ -37,6 +33,9 @@ class EditProfileViewModel(
             is EditProfileEvent.UsernameChanged -> {
                 state = state.copy(username = event.username)
             }
+            is EditProfileEvent.BioChanged -> {
+                state = state.copy(bio = event.bio)
+            }
             is EditProfileEvent.Submit -> {
                 submitData()
             }
@@ -45,18 +44,17 @@ class EditProfileViewModel(
 
     private fun submitData() {
         val emailResult = validateEmail.execute(state.email)
-        val passwordResult = validatePassword.execute(state.password)
         val usernameResult = validateUsername.execute(state.username)
 
         val hasError = listOf(
             emailResult,
-            passwordResult,
+            //passwordResult,
             usernameResult
         ).any { !it.successful}
 
         state = state.copy(
             emailError = emailResult.errorMessage,
-            passwordError = passwordResult.errorMessage,
+            //passwordError = passwordResult.errorMessage,
             usernameError = usernameResult.errorMessage
         )
         if(hasError)

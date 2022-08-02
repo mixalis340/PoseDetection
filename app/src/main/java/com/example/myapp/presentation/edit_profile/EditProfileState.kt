@@ -8,7 +8,7 @@ data class EditProfileState(
     val emailError: UiText? = null,
     val username: String = "",
     val usernameError: UiText? = null,
-    val password: String = "",
-    val passwordError: UiText? = null,
+    val bio: String = "",
+    val bioError: UiText? = null,
 )
 

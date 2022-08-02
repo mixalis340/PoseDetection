@@ -19,4 +19,6 @@
     <string name="home">Home</string>
     <string name="your_profile">Your profile</string>
     <string name="edit_your_profile">Edit your profile</string>
+    <string name="bio_hint">Your bio</string>
+    <string name="save_changes">Save changes</string>
 </resources>

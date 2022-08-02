@@ -1,6 +1,7 @@
 package com.example.myapp.presentation.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,10 +10,13 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import java.time.format.TextStyle
 
 @Composable
 fun StandardTextField(
@@ -21,7 +25,8 @@ fun StandardTextField(
     onValueChange: (String) -> Unit,
     error: String? = null,
     singleLine: Boolean = true,
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    leadingIcon: ImageVector? = null
 ){
     val isPasswordToggleDisplayed by remember {
         mutableStateOf(keyboardType == KeyboardType.Password)
@@ -32,6 +37,7 @@ fun StandardTextField(
     TextField(
         value = text,
         onValueChange = onValueChange,
+        textStyle = androidx.compose.ui.text.TextStyle(MaterialTheme.colors.onBackground),
         placeholder = {
             Text(text = hint,
                 style = MaterialTheme.typography.body1
@@ -46,6 +52,16 @@ fun StandardTextField(
                                                             } else {
                                                                    VisualTransformation.None
                                                                    },
+        leadingIcon = if(leadingIcon != null) {
+                {
+                    Icon(
+                        imageVector = leadingIcon,
+                        contentDescription = null,
+                        tint = MaterialTheme.colors.onBackground,
+                        modifier = Modifier.size(25.dp)
+                    )
+                }
+        }else null,
         trailingIcon = {
             if(isPasswordToggleDisplayed) {
                 IconButton(onClick = {
@@ -57,7 +73,7 @@ fun StandardTextField(
                         } else {
                             Icons.Filled.Visibility
                         },
-                        tint = Color.White,
+                        tint = MaterialTheme.colors.onBackground,
                     contentDescription = ""
                     )
                 }
