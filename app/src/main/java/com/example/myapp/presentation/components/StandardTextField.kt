@@ -16,7 +16,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import java.time.format.TextStyle
 
 @Composable
 fun StandardTextField(
@@ -53,14 +52,14 @@ fun StandardTextField(
                                                                    VisualTransformation.None
                                                                    },
         leadingIcon = if(leadingIcon != null) {
-                {
-                    Icon(
-                        imageVector = leadingIcon,
-                        contentDescription = null,
-                        tint = MaterialTheme.colors.onBackground,
-                        modifier = Modifier.size(25.dp)
-                    )
-                }
+            {
+                Icon(
+                    imageVector = leadingIcon,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.onBackground,
+                    modifier = Modifier.size(25.dp)
+                )
+            }
         }else null,
         trailingIcon = {
             if(isPasswordToggleDisplayed) {

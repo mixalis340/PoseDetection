@@ -7,31 +7,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapp.presentation.components.BottomNavItem
 import com.example.myapp.presentation.components.BottomNavigationBar
-import com.example.myapp.presentation.login.LoginScreen
-import com.example.myapp.presentation.ui.theme.MediumGray
 import com.example.myapp.presentation.ui.theme.MyAppTheme
 import com.example.myapp.presentation.util.MainScreen
 import com.example.myapp.presentation.util.Navigation
 import com.example.myapp.presentation.util.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +36,13 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val scaffoldState = rememberScaffoldState()
                     Scaffold(
                         bottomBar = {
                             if(navBackStackEntry?.destination?.route in listOf(
                                     Screen.MainScreen.route,
                                     Screen.ProfileScreen.route
+                                    //"${Screen.ProfileScreen.route}?userId={userId}"
                             )) {
                                 BottomNavigationBar(
                                     items = listOf(
@@ -69,15 +63,17 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             }
-                        }
+                        },
+                        scaffoldState = scaffoldState
 
                     ) {
-                        Navigation(navController)
+                        Navigation(navController,scaffoldState)
                     }
                 }
             }
         }
     }
+    
 }
 @Composable
 fun ChatScreen() {

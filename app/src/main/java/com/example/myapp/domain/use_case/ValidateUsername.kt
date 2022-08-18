@@ -4,6 +4,12 @@ import android.util.Patterns
 import com.example.myapp.Constants
 import com.example.myapp.R
 import com.example.myapp.presentation.UiText
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
 
 class ValidateUsername {
 
@@ -26,7 +32,7 @@ class ValidateUsername {
         }
         return ValidationResult(
             successful = true,
-
         )
     }
 }
+

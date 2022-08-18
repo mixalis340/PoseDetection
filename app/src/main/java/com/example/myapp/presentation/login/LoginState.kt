@@ -8,5 +8,5 @@ data class LoginState(
     val emailError: UiText? = null,
     val password: String = "",
     val passwordError: UiText? = null,
-
+    val isLoading: Boolean = false
 )

@@ -11,15 +11,21 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.ImageLoader
+import coil.compose.rememberImagePainter
+import coil.decode.SvgDecoder
 import com.example.myapp.R
 import com.example.myapp.presentation.ui.theme.*
 
@@ -27,8 +33,10 @@ import com.example.myapp.presentation.ui.theme.*
 fun ProfileHeaderSection(
     modifier: Modifier = Modifier,
     user:User,
-    onEditClick: () -> Unit ={}
+    onEditClick: () -> Unit ={},
+    onLogoutClick: () -> Unit ={}
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -36,7 +44,14 @@ fun ProfileHeaderSection(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.mike_image) ,
+            painter = rememberImagePainter(
+                data = user.profilePictureUrl,
+               imageLoader = ImageLoader.Builder(LocalContext.current)
+                   .componentRegistry {
+                       add(SvgDecoder(context))
+                   }
+                   .build()
+            ) ,
             contentDescription ="",
             modifier = Modifier
                 .size(ProfilePictureSizeLarge)
@@ -67,14 +82,26 @@ fun ProfileHeaderSection(
                     .size(30.dp)
             ) {
                 Icon(imageVector = Icons.Default.Edit,
-                    contentDescription = null
+                    contentDescription = stringResource(id = R.string.edit_your_profile)
+                )
+            }
+            Spacer(modifier = Modifier.width(SpaceSmall))
+            IconButton(
+                onClick = onLogoutClick,
+                modifier = Modifier
+                    .size(30.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Logout,
+                    contentDescription = stringResource(id = R.string.logout)
                 )
             }
         }
         Spacer(modifier = Modifier.height(SpaceMedium))
         Text(
             text = user.description,
-            style = MaterialTheme.typography.body2,
+            style = MaterialTheme.typography.body2.copy(
+                fontSize = 14.sp
+            ),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxSize()
