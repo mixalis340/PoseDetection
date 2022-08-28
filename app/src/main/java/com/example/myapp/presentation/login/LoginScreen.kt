@@ -4,11 +4,10 @@ package com.example.myapp.presentation.login
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -17,35 +16,57 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapp.R
+import com.example.myapp.Resource
+import com.example.myapp.SimpleResource
 import com.example.myapp.presentation.components.StandardTextField
 import com.example.myapp.presentation.profile.ProfileScreen
+import com.example.myapp.presentation.register.RegisterViewModel
 import com.example.myapp.presentation.ui.theme.SpaceLarge
 import com.example.myapp.presentation.ui.theme.SpaceMedium
 import com.example.myapp.presentation.util.Screen
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun LoginScreen(navController: NavController){
-
-        val viewModel = viewModel<LoginViewModel>()
+fun LoginScreen(
+    navController: NavController,
+    scaffoldState: ScaffoldState,
+    viewModel: LoginViewModel= hiltViewModel()
+){
         val state = viewModel.state
         val context = LocalContext.current
 
-        LaunchedEffect(key1 = context)   {
-            viewModel.validationEvents.collect { event ->
-                when(event) {
-                    is LoginViewModel.ValidationEvent.Success -> {
-                        Toast.makeText(
-                            context,
-                            "Login successful",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+    LaunchedEffect(key1 = true)   {
+        viewModel.eventFlow.collectLatest { event ->
+            when(event) {
+                is LoginViewModel.UiEvent.SnackbarEvent-> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        event.uiText.asString(context),
+                        duration = SnackbarDuration.Long
+                    )
+                }
+                is LoginViewModel.UiEvent.Navigate -> {
+                    navController.navigate(event.route)
                 }
             }
         }
+    }
+
+    LaunchedEffect(key1 = true)   {
+        viewModel.authResults.collect { result ->
+            when(result) {
+                is Resource.Success ->{
+                    navController.popBackStack()
+                    navController.navigate(Screen.MainScreen.route)
+                }
+            }
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +110,7 @@ fun LoginScreen(navController: NavController){
             )
             Spacer(modifier = Modifier.height(SpaceMedium))
             Button(onClick = {
-                navController.navigate(Screen.MainScreen.route)
+                viewModel.onEvent(LoginEvent.Submit)
             },
                 modifier = Modifier
                     .align(Alignment.End)
@@ -99,40 +120,11 @@ fun LoginScreen(navController: NavController){
                     color = MaterialTheme.colors.onPrimary
                 )
             }
-
-            /*ERROR HANDLING EXAMPLE!!
-            TextField(
-                value = state.email,
-                onValueChange = {
-                    viewModel.onEvent(LoginFormEvent.EmailChanged(it))
-                },
-                isError = state.emailError != null,
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = {
-                    Text(text = "Email")
-                }
+            if(state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier
+                    .align(CenterHorizontally)
                 )
-
-                if (state.emailError != null) {
-                    Text(
-                        text = state.emailError,
-                        color = MaterialTheme.colors.error,
-                        modifier= Modifier.align(Alignment.End)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-            Button(onClick = {
-                viewModel.onEvent(LoginFormEvent.Submit)
-            },
-                modifier= Modifier.align(Alignment.End)
-            ) {
-                Text(
-                    text = "Submit",
-                    color = MaterialTheme.colors.background
-                )
-            }*/
+            }
         }
         Text(
             text = buildAnnotatedString {

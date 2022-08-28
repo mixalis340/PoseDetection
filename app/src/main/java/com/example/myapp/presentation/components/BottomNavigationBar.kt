@@ -43,7 +43,6 @@ fun BottomNavigationBar(
                             Text(
                                 text = item.name,
                                 textAlign = TextAlign.Center,
-                                //fontSize = 10.sp,
                                 style = MaterialTheme.typography.body2
                             )
                         }

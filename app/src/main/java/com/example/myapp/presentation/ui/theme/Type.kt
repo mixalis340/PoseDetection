@@ -14,7 +14,6 @@ val quicksand = FontFamily(
     Font(R.font.quicksand_medium, FontWeight.Medium),
     Font(R.font.quicksand_semibold, FontWeight.SemiBold),
     Font(R.font.quicksand_bold, FontWeight.Bold),
-
     )
 // Set of Material typography styles to start with
 val Typography = Typography(

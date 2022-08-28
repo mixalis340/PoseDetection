@@ -3,9 +3,7 @@ package com.example.myapp.presentation.register
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +14,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapp.R
@@ -25,23 +24,28 @@ import com.example.myapp.presentation.login.LoginViewModel
 import com.example.myapp.presentation.ui.theme.SpaceLarge
 import com.example.myapp.presentation.ui.theme.SpaceMedium
 import com.example.myapp.presentation.util.Screen
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(
+    navController: NavController,
+    scaffoldState: ScaffoldState,
+    viewModel: RegisterViewModel = hiltViewModel()
+) {
 
-    val viewModel = viewModel<RegisterViewModel>()
+
     val state = viewModel.state
     val context = LocalContext.current
 
-    LaunchedEffect(key1 = context)   {
-        viewModel.validationEvents.collect { event ->
+
+    LaunchedEffect(key1 = true)   {
+        viewModel.eventFlow.collectLatest { event ->
             when(event) {
-                is RegisterViewModel.ValidationEvent.Success -> {
-                    Toast.makeText(
-                        context,
-                        "Register successful",
-                        Toast.LENGTH_LONG
-                    ).show()
+                is RegisterViewModel.UiEvent.SnackbarEvent-> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        event.uiText.asString(context),
+                        duration = SnackbarDuration.Long,
+                    )
                 }
             }
         }
@@ -99,6 +103,7 @@ fun RegisterScreen(navController: NavController) {
             Button(onClick = {
                 viewModel.onEvent(RegisterEvent.Submit)
             },
+                enabled = !state.isLoading,
                 modifier = Modifier
                     .align(Alignment.End)
             ) {
@@ -106,6 +111,10 @@ fun RegisterScreen(navController: NavController) {
                     text = stringResource(id = R.string.register),
                     color = MaterialTheme.colors.onPrimary
                 )
+            }
+            if(state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier
+                    .align(Alignment.CenterHorizontally))
             }
         }
         Text(
