@@ -30,7 +30,7 @@ import com.example.myapp.presentation.settings.SettingsScreen
 @Composable
 fun Navigation(
     navController: NavHostController,
-    scaffoldState: ScaffoldState
+    scaffoldState: ScaffoldState,
 ){
     NavHost(navController = navController,
             startDestination = Screen.LoginScreen.route,

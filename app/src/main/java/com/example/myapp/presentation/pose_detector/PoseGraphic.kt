@@ -175,11 +175,12 @@ fun DetectedPose(
                             color = 0xFFEEEEEE.toInt()
                             textAlign = Paint.Align.CENTER
 
+
                         }
                     )
              }
         }
-
+/*
         val angle = getAngle(rightShoulder,rightElbow,rightWrist)
 
         if(angle > 160)
@@ -188,11 +189,34 @@ fun DetectedPose(
         if(angle < 30 &&   Constants.STAGE ==  "down") {
             Constants.STAGE = "up"
             Constants.COUNTER++
+        }*/
+        val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
+        val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
+        val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
+        val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+
+        if(angle24_26_28 < 170 && Constants.STAGE !="Nice!") {
+            Constants.STAGE = "Stand up"
+        }
+        else if(yLeftHand >0 || yRightHand > 0){
+            Constants.STAGE = "Put your hands behind your head"
+        }
+       else {
+           Constants.STAGE = "Nice!"
+            if(angle23_25_27 < 120 && angle23_25_27 < 120 ) {
+                Constants.COUNTER++
+                Constants.STAGE = "Nice!"
+            }
         }
 
-        drawText("Reps:"+ Constants.COUNTER.toString(),1)
+       // Log.i("Angle",angle.toString())
+        //drawText(Constants.STAGE,1)
+       // drawText("Reps:"+ Constants.COUNTER.toString(),1)
        // drawText("Text",2)
-
+        drawText(Constants.STAGE,1)
+        drawText("Reps:" +Constants.COUNTER.toString(),2)
+        drawText(angle23_25_27.toString(),3)
+        reInitParams()
         // Face
         drawLine(nose, leftEyeInner, whitePaint)
         drawLine( leftEyeInner, leftEye, whitePaint)
@@ -247,6 +271,9 @@ fun DetectedPose(
             }
         }
     }
+}
+fun reInitParams(){
+ Constants.STAGE = ""
 }
 
 fun getAngle(firstPoint: PoseLandmark?, midPoint: PoseLandmark?, lastPoint: PoseLandmark?): Double {
