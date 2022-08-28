@@ -124,7 +124,7 @@ fun DetectedPose(
 
                 var v = (zInScreenPixel / zLowerBoundInScreenPixel * 255).toInt()
                 v = Ints.constrainToRange(v, 0, 255)
-                paint
+                //paint
             } else{
                 // Sets up the paint to draw the body line in blue if it is behind the z origin.
                 // Maps values within [0, zUpperBoundInScreenPixel] to [0, 255] and use it to control the
