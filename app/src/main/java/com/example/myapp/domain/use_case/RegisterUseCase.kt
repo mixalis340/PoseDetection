@@ -13,6 +13,8 @@ class RegisterUseCase(
         username: String,
         password: String
     ): SimpleResource {
+
+
         return repository.register(email.trim(), username.trim(), password.trim())
     }
 }

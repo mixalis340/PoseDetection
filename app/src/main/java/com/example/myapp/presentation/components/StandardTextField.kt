@@ -17,8 +17,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
-import java.time.format.TextStyle
-
 @Composable
 fun StandardTextField(
     text: String = "",
@@ -62,7 +60,6 @@ fun StandardTextField(
                     modifier = Modifier.size(25.dp)
                 )
             }
-
         }else null,
         trailingIcon = {
             if(isPasswordToggleDisplayed) {

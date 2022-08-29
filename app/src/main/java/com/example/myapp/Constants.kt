@@ -1,7 +1,5 @@
 package com.example.myapp
 
-import androidx.compose.ui.unit.dp
-
 object Constants {
     const val MIN_USERNAME_LENGTH = 3
     const val MIN_PASSWORD_LENGTH = 4
@@ -11,12 +9,4 @@ object Constants {
     const val SHARED_PREF_NAME = "shared_pref"
 
     const val KEY_USER_ID = "userId"
-
-    const val KEY_FRAME_LIKELIHOOD = "Saved_Frame_in_likelihood"
-    const val DOT_RADIUS = 3.0f
-
-    const val STROKE_WIDTH = 3.5f
-
-    var COUNTER = 0
-    var STAGE = "none"
 }

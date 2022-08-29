@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -55,7 +54,6 @@ fun ProfileScreen(
         }
     }
     Column(
-        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
     ) {
@@ -97,22 +95,8 @@ fun ProfileScreen(
                         }
                     )
                 }
+
             }
-            /*
-            item {
-                //Spacer(modifier = Modifier.height(90.dp))
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                    ,
-                ) {
-                    if(state.isLoading) {
-                        CircularProgressIndicator(modifier = Modifier
-                            .align(Alignment.CenterHorizontally)
-                        )
-                    }
-                }
-            }*/
         }
         if(state.isLogoutDialogVisible) {
             Dialog(onDismissRequest = {

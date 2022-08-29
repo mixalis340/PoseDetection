@@ -13,16 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapp.presentation.components.BottomNavItem
 import com.example.myapp.presentation.components.BottomNavigationBar
 import com.example.myapp.presentation.ui.theme.MyAppTheme
+import com.example.myapp.presentation.util.MainScreen
 import com.example.myapp.presentation.util.Navigation
 import com.example.myapp.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
-import com.example.myapp.R
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -48,12 +47,12 @@ class MainActivity : ComponentActivity() {
                                 BottomNavigationBar(
                                     items = listOf(
                                         BottomNavItem(
-                                            name = stringResource(id = R.string.home),
+                                            name = "Home",
                                             route = Screen.MainScreen.route,
                                             icon = Icons.Outlined.Home
                                         ),
                                         BottomNavItem(
-                                            name = stringResource(id = R.string.profile),
+                                            name = "Profile",
                                             route = Screen.ProfileScreen.route,
                                             icon = Icons.Outlined.Person
                                         ),

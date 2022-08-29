@@ -21,16 +21,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapp.presentation.edit_profile.EditProfileScreen
 import com.example.myapp.presentation.login.LoginScreen
-import com.example.myapp.presentation.main_screen.Camera
 import com.example.myapp.presentation.profile.ProfileScreen
 import com.example.myapp.presentation.register.RegisterScreen
-import com.example.myapp.presentation.settings.SettingsScreen
 
 
 @Composable
 fun Navigation(
     navController: NavHostController,
-    scaffoldState: ScaffoldState,
+    scaffoldState: ScaffoldState
 ){
     NavHost(navController = navController,
             startDestination = Screen.LoginScreen.route,
@@ -52,15 +50,10 @@ fun Navigation(
         composable(route = Screen.MainScreen.route){
             com.example.myapp.presentation.main_screen.MainScreen(navController = navController)
         }
-        composable(route = Screen.CameraScreen.route) {
-            Camera(navController = navController)
-        }
-        composable(route = Screen.SettingsScreen.route) {
-            SettingsScreen(navController = navController)
-        }
         composable(
             route = Screen.ProfileScreen.route,
         ){
+
             ProfileScreen(
                 userId = it.arguments?.getString("userId"),
                 onLogout = {
@@ -92,3 +85,38 @@ fun Navigation(
     }
 }
 
+@Composable
+fun MainScreen(navController: NavController){
+    var text by remember{
+        mutableStateOf("")
+    }
+    Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 50.dp)
+    ) {
+        TextField(value =  text, onValueChange = {
+            text= it
+        },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(onClick = {
+            navController.navigate(Screen.LoginScreen.wirthArgs(text))
+        },
+            modifier = Modifier.align(Alignment.End)
+            ) {
+            Text(text = "To Signin Screen")
+        }
+
+    }
+}
+@Composable
+fun SigninScreen(name: String?){
+    Box(modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(text = "Hello, $name")
+    }
+}

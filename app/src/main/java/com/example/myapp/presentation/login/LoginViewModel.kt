@@ -11,6 +11,7 @@ import com.example.myapp.Resource
 import com.example.myapp.SimpleResource
 import com.example.myapp.domain.use_case.*
 import com.example.myapp.presentation.UiText
+import com.example.myapp.presentation.util.MainScreen
 import com.example.myapp.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -136,7 +137,7 @@ class  LoginViewModel @Inject constructor(
     private fun authenticate() {
         viewModelScope.launch {
             state = state.copy(isLoading = true)
-            delay(1000L)
+            delay(2000L)
             val result = authenticateUseCase()
             resultChannel.send(result)
             state = state.copy(isLoading = false)

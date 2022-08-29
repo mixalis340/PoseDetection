@@ -14,7 +14,6 @@ import com.example.myapp.presentation.UiText
 import com.example.myapp.presentation.register.RegisterState
 import com.example.myapp.presentation.register.RegisterViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -31,6 +30,7 @@ class ProfileViewModel @Inject constructor(
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
+
 
     fun onEvent(event: ProfileEvent) {
         when(event) {

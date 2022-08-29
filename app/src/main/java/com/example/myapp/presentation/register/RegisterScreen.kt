@@ -44,7 +44,7 @@ fun RegisterScreen(
                 is RegisterViewModel.UiEvent.SnackbarEvent-> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         event.uiText.asString(context),
-                        duration = SnackbarDuration.Long,
+                        duration = SnackbarDuration.Long
                     )
                 }
             }
@@ -113,8 +113,7 @@ fun RegisterScreen(
                 )
             }
             if(state.isLoading) {
-                CircularProgressIndicator(modifier = Modifier
-                    .align(Alignment.CenterHorizontally))
+                CircularProgressIndicator()
             }
         }
         Text(

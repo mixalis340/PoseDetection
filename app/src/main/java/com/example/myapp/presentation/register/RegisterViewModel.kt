@@ -16,7 +16,6 @@ import com.example.myapp.presentation.UiText
 import com.example.myapp.presentation.login.LoginViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -78,7 +77,6 @@ class RegisterViewModel @Inject constructor(
 
         viewModelScope.launch {
             state = state.copy(isLoading = true)
-            delay(2000L)
            val result = registerUseCase(
                email = state.email,
                username = state.username,
