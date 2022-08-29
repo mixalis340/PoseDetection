@@ -22,9 +22,9 @@
     <string name="bio_hint">Your bio</string>
     <string name="save_changes">Save changes</string>
     <string name="error_unkown">Unknown error</string>
-    <string name="error_couldnt_reach_server">Oops! Couldn\'t reach server. Check your internet connection.</string>
-    <string name="error_something_went_wrong">Oops! Something went wrong. Please try again.</string>
-    <string name="success_registretion">Successfully registered an account. You can now log in.</string>
+    <string name="error_couldnt_reach_server">Couldn\'t reach server. Check your internet connection.</string>
+    <string name="error_something_went_wrong">Something went wrong. Please try again!</string>
+    <string name="success_registretion">Successfully registered an account. You can now log in!</string>
     <string name="error_couldnt_load_profile">Couldn\'t load profile!</string>
     <string name="error_username_empty">The username can\'t be empty.</string>
     <string name="updated_profile">Successfully updated profile!</string>
