@@ -21,28 +21,6 @@ fun MainScreen(
     navController: NavController,
     onExerciseClick: () -> Unit= {}
 ) {
-    /*
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-       StandardToolbar(
-           navController = navController,
-           title = {
-               Text(
-                   text = stringResource(id = R.string.home),
-                   fontWeight = FontWeight.Bold,
-                   color = MaterialTheme.colors.onBackground,
-               )
-           },
-           modifier = Modifier.fillMaxWidth(),
-       )
-    }
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("MainScreen")
-    }*/
 
     Column(
         modifier = Modifier.fillMaxSize()

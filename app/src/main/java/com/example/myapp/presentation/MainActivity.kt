@@ -74,13 +74,5 @@ class MainActivity : ComponentActivity() {
     }
     
 }
-@Composable
-fun ChatScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Chat screen")
-    }
-}
+
 
