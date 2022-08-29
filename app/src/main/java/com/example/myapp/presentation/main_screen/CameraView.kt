@@ -50,14 +50,12 @@ import kotlin.coroutines.suspendCoroutine
 
 @Composable
 fun CameraView(
-    navController: NavController,
-    viewModel: SettingsViewModel = hiltViewModel()
+    navController: NavController
 ) {
     val context = LocalContext.current
     var lensFacing by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK)}
 
   CameraPreviewView(
-      viewModel,
       navController,
       lensFacing,
   ) { cameraUIAction ->
@@ -74,7 +72,6 @@ fun CameraView(
 
 @Composable
 private fun CameraPreviewView(
-    viewModel: SettingsViewModel = hiltViewModel(),
      navController: NavController,
     lensFacing: Int = CameraSelector.LENS_FACING_BACK,
     cameraUIAction: (CameraUIAction) -> Unit
@@ -97,18 +94,10 @@ private fun CameraPreviewView(
     var detectedPose by remember { mutableStateOf<Pose?>(null) }
     var sourceInfo by remember { mutableStateOf(SourceInfo(10, 10, true)) }
 
-
-    val cameraProvider = remember(sourceInfo, lensFacing) {
-        ProcessCameraProvider.getInstance(context)
-            .configureCamera(
-                previewView, lifecycleOwner, lensFacing, context,
-                setSourceInfo = { sourceInfo = it },
-                onPoseDetected = { detectedPose = it }
-            )
-    }
+    val analysis =
+        bindAnalysisUseCase(lensFacing, setSourceInfo = { sourceInfo = it }, onPoseDetected = { detectedPose = it })
 
     //Listen for changes to lensFacing
-    /*
     LaunchedEffect(lensFacing) {
         val cameraProvider = context.getCameraProvider()
         cameraProvider.unbindAll()
@@ -116,11 +105,11 @@ private fun CameraPreviewView(
             lifecycleOwner,
             cameraSelector,
             preview,
-            bindAnalysisUseCase(lensFacing, sourceInfo1, detectedPose1)
+            analysis
         )
         //To see the changes
         preview.setSurfaceProvider(previewView.surfaceProvider)
-    }*/
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         AndroidView({ previewView }, modifier = Modifier.fillMaxSize()) {
@@ -204,45 +193,12 @@ fun CameraControl(
     }
 }
 
-/*
 suspend fun Context.getCameraProvider(): ProcessCameraProvider = suspendCoroutine { continuation ->
     ProcessCameraProvider.getInstance(this).also { cameraProvider ->
         cameraProvider.addListener({
             continuation.resume(cameraProvider.get())
         }, ContextCompat.getMainExecutor(this))
     }
-}*/
-
-private fun ListenableFuture<ProcessCameraProvider>.configureCamera(
-    previewView: PreviewView,
-    lifecycleOwner: LifecycleOwner,
-    cameraLens: Int,
-    context: Context,
-    setSourceInfo: (SourceInfo) -> Unit,
-    onPoseDetected: (Pose) -> Unit
-): ListenableFuture<ProcessCameraProvider> {
-    addListener({
-        val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraLens).build()
-
-        val preview = androidx.camera.core.Preview.Builder()
-            .build()
-            .apply {
-                setSurfaceProvider(previewView.surfaceProvider)
-            }
-
-        val analysis =
-            bindAnalysisUseCase(cameraLens, setSourceInfo, onPoseDetected)
-        try {
-            get().apply {
-                unbindAll()
-                bindToLifecycle(lifecycleOwner, cameraSelector, preview)
-                bindToLifecycle(lifecycleOwner, cameraSelector, analysis)
-            }
-        } catch (exc: Exception) {
-            TODO("process errors")
-        }
-    }, ContextCompat.getMainExecutor(context))
-    return this
 }
 
 private fun bindAnalysisUseCase(
@@ -278,6 +234,7 @@ private fun bindAnalysisUseCase(
     }
     return analysisUseCase
 }
+
 private fun obtainSourceInfo(lens: Int, imageProxy: ImageProxy): SourceInfo {
     val isImageFlipped = lens == CameraSelector.LENS_FACING_FRONT
     val rotationDegrees = imageProxy.imageInfo.rotationDegrees
