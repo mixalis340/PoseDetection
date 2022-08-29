@@ -11,7 +11,6 @@ import com.example.myapp.Resource
 import com.example.myapp.SimpleResource
 import com.example.myapp.domain.use_case.*
 import com.example.myapp.presentation.UiText
-import com.example.myapp.presentation.util.MainScreen
 import com.example.myapp.presentation.util.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

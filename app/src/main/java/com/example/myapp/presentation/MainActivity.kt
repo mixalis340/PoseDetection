@@ -18,7 +18,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapp.presentation.components.BottomNavItem
 import com.example.myapp.presentation.components.BottomNavigationBar
 import com.example.myapp.presentation.ui.theme.MyAppTheme
-import com.example.myapp.presentation.util.MainScreen
 import com.example.myapp.presentation.util.Navigation
 import com.example.myapp.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint

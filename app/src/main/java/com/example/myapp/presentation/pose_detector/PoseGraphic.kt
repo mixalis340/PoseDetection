@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.unit.dp
 import com.example.myapp.Constants
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.primitives.Ints
+
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 
@@ -202,7 +203,6 @@ fun DetectedPose(
             Constants.STAGE = "Put your hands behind your head"
         }
        else {
-           Constants.STAGE = "Nice!"
             if(angle23_25_27 < 120 && angle23_25_27 < 120 ) {
                 Constants.COUNTER++
                 Constants.STAGE = "Nice!"

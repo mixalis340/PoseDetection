@@ -84,39 +84,3 @@ fun Navigation(
 
     }
 }
-
-@Composable
-fun MainScreen(navController: NavController){
-    var text by remember{
-        mutableStateOf("")
-    }
-    Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 50.dp)
-    ) {
-        TextField(value =  text, onValueChange = {
-            text= it
-        },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = {
-            navController.navigate(Screen.LoginScreen.wirthArgs(text))
-        },
-            modifier = Modifier.align(Alignment.End)
-            ) {
-            Text(text = "To Signin Screen")
-        }
-
-    }
-}
-@Composable
-fun SigninScreen(name: String?){
-    Box(modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ){
-        Text(text = "Hello, $name")
-    }
-}
