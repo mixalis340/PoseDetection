@@ -21,8 +21,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.myapp.presentation.edit_profile.EditProfileScreen
 import com.example.myapp.presentation.login.LoginScreen
+import com.example.myapp.presentation.main_screen.Camera
 import com.example.myapp.presentation.profile.ProfileScreen
 import com.example.myapp.presentation.register.RegisterScreen
+import com.example.myapp.presentation.settings.SettingsScreen
 
 
 @Composable
@@ -49,6 +51,12 @@ fun Navigation(
         }
         composable(route = Screen.MainScreen.route){
             com.example.myapp.presentation.main_screen.MainScreen(navController = navController)
+        }
+        composable(route = Screen.CameraScreen.route) {
+            Camera(navController = navController)
+        }
+        composable(route = Screen.SettingsScreen.route) {
+            SettingsScreen(navController = navController)
         }
         composable(
             route = Screen.ProfileScreen.route,
