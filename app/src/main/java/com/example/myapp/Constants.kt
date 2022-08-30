@@ -16,6 +16,8 @@ object Constants {
 
     const val STROKE_WIDTH = 3.5f
 
-    var COUNTER = 0
-    var STAGE = "none"
+    var counter = 0
+    var text = "none"
+    var stage = "none"
+    var isCount = false
 }

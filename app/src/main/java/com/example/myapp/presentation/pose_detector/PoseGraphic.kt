@@ -1,13 +1,11 @@
 package com.example.myapp.presentation.pose_detector
 
 import android.graphics.Paint
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.unit.dp
 import com.example.myapp.Constants
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.primitives.Ints
 
@@ -50,11 +48,6 @@ fun DetectedPose(
 
 
       fun drawPoint(landmark: PoseLandmark, paint: Color) {
-          /*
-          val startX =
-              if (needToMirror) size.width - landmark.position.x else landmark.position.x
-          val startY = landmark.position.y
-            drawCircle(paint, 2.0f, center = Offset(startX,startY)  )*/
           val startX = translate(landmark)
           val startY = landmark.position.y
           drawCircle(paint, Constants.DOT_RADIUS, center = Offset(startX,startY))
@@ -144,11 +137,9 @@ fun DetectedPose(
             if(startLandmark == null || endLandmark == null)
                 return
 
-            val startX =
-                if (needToMirror) size.width - startLandmark.position.x else startLandmark.position.x
+            val startX = translate(startLandmark)
             val startY = startLandmark.position.y
-            val endX =
-                if (needToMirror) size.width - endLandmark.position.x else endLandmark.position.x
+            val endX = translate(endLandmark)
             val endY = endLandmark.position.y
 
             val avgZInImagePixel = (startLandmark.position3D.z + endLandmark.position3D.z) / 2
@@ -175,49 +166,90 @@ fun DetectedPose(
                             textSize = 25.0f
                             color = 0xFFEEEEEE.toInt()
                             textAlign = Paint.Align.CENTER
-
-
                         }
                     )
              }
         }
-/*
-        val angle = getAngle(rightShoulder,rightElbow,rightWrist)
-
-        if(angle > 160)
-            Constants.STAGE = "down"
-
-        if(angle < 30 &&   Constants.STAGE ==  "down") {
-            Constants.STAGE = "up"
-            Constants.COUNTER++
-        }*/
+        /*simple right hand exercise
+        val angle12_14_16 = getAngle(rightShoulder,rightElbow,rightWrist)
         val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
+
+        if(angle24_26_28 < 170) {
+            reInitParams()
+            Constants.text = "Stand up"
+        }
+      else  if(angle12_14_16 > 160) {
+            Constants.stage = "down"
+            Constants.text = "Move your wrist close to your arm"
+        }
+
+      else  if(angle12_14_16 < 30 &&   Constants.stage ==  "down") {
+            Constants.stage= "up"
+            Constants.text = "Stretch your arm"
+            Constants.counter++
+        }
+        drawText(Constants.text,1)
+        drawText(Constants.counter.toString(),2)
+        */
+
+        // squats exercise
         val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
         val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
+        val shoulderDistance = leftShoulder.position.x - rightShoulder.position.x
+        val footDistance = leftAnkle!!.position.x - rightAnkle!!.position.x
+        val ratio = footDistance/shoulderDistance
         val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+        val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
-        if(angle24_26_28 < 170 && Constants.STAGE !="Nice!") {
-            Constants.STAGE = "Stand up"
+        if(angle24_26_28 < 170 && yLeftHand > 0 ) {
+            Constants.text = "Stand up"
+        }else if(yLeftHand >0 || yRightHand > 0){
+            Constants.text = "Put your hands behind your head"
+            Constants.counter = 0
+        }else if(ratio < 0.5)
+            Constants.text = "Spread your feet shoulder-width apart"
+        else if(angle24_26_28 > 170 ) {
+            Constants.text = "Go down!"
+            Constants.stage = "down"
+        }else {
+               if(angle24_26_28 < 110 && angle23_25_27 < 110 && Constants.stage == "down" ) {
+                   Constants.text = "Nice!"
+                   Constants.stage = "up"
+                   Constants.counter++
+               }
+            }
+
+        drawText(Constants.text,1)
+        drawText("Count:" +Constants.counter.toString(),2)
+
+        /* arm exercise
+        val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
+        val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+        val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
+
+        if(angle23_25_27 < 170) {
+           reInitParams()
+            Constants.text = "Stand up!"
         }
-        else if(yLeftHand >0 || yRightHand > 0){
-            Constants.STAGE = "Put your hands behind your head"
+
+        else if(yRightHand>0 && Constants.stage != "down") {
+            Constants.text = "Hold your right arm in your right shoulder height"
         }
-       else {
-            if(angle23_25_27 < 120 && angle23_25_27 < 120 ) {
-                Constants.COUNTER++
-                Constants.STAGE = "Nice!"
+
+        else{
+            if(angle12_14_16 > 150 && yRightHand<0) {
+                Constants.text = "Nice!"
+                Constants.stage = "down"
+            }
+            if(angle12_14_16 > 170 && Constants.stage == "down" && yRightHand>0) {
+                Constants.stage = "up"
+                Constants.counter++
             }
         }
 
-       // Log.i("Angle",angle.toString())
-        //drawText(Constants.STAGE,1)
-       // drawText("Reps:"+ Constants.COUNTER.toString(),1)
-       // drawText("Text",2)
-        drawText(Constants.STAGE,1)
-        drawText("Reps:" +Constants.COUNTER.toString(),2)
-        drawText(angle23_25_27.toString(),3)
-        reInitParams()
-        // Face
+        drawText(Constants.text,1)
+        drawText("Count:" +Constants.counter.toString(),2)*/
+
         drawLine(nose, leftEyeInner, whitePaint)
         drawLine( leftEyeInner, leftEye, whitePaint)
         drawLine( leftEye, leftEyeOuter, whitePaint)
@@ -273,7 +305,9 @@ fun DetectedPose(
     }
 }
 fun reInitParams(){
- Constants.STAGE = ""
+ Constants.text = ""
+ Constants.counter = 0
+ Constants.isCount = false
 }
 
 fun getAngle(firstPoint: PoseLandmark?, midPoint: PoseLandmark?, lastPoint: PoseLandmark?): Double {

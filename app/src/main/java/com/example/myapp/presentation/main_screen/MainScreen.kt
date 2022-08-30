@@ -41,7 +41,7 @@ fun MainScreen(
                 Exercise(
                     exercise = com.example.myapp.presentation.main_screen.models.Exercise(
                         name = "Push-Ups",
-                        imageUrl = painterResource(id = R.drawable.push_ups_exercise),
+                        imageUrl = painterResource(id = R.drawable.squats_exercise),
                         description = "Start your push-ups exercise like the picture above!"
                     ),
                     modifier = Modifier.clickable {

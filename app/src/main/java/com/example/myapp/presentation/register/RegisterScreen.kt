@@ -112,9 +112,9 @@ fun RegisterScreen(
                     color = MaterialTheme.colors.onPrimary
                 )
             }
-            if(state.isLoading) {
+            if(state.isLoading)
                 CircularProgressIndicator()
-            }
+
         }
         Text(
             text = buildAnnotatedString {

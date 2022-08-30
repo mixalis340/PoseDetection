@@ -22,6 +22,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 fun Camera(
     navController: NavController
 ) {
+
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
     val lifecycleOwner = LocalLifecycleOwner.current
