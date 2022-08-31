@@ -120,34 +120,6 @@ class EditProfileViewModel @Inject constructor(
     }
 
 
-
-    private fun validateUsername(username: String): ValidationResult {
-        val trimmedUsername = username.trim()
-        if(trimmedUsername.isBlank()) {
-            return  ValidationResult(
-                successful = false,
-                errorMessage = UiText.StringResource(R.string.this_field_cant_be_empty)
-            )
-        }
-        if(trimmedUsername.length < Constants.MIN_USERNAME_LENGTH) {
-            return ValidationResult(
-                successful = false,
-                errorMessage = UiText.StringResource(
-                    resId = R.string.input_too_short,
-                    Constants.MIN_USERNAME_LENGTH
-                )
-            )
-        }
-        return ValidationResult(
-            successful = true,
-        )
-    }
-
-
-
-
-
-
     sealed class UiEvent {
         data class SnackbarEvent(val uiText: UiText): UiEvent()
         data class Navigate(val route: String): UiEvent()

@@ -136,7 +136,7 @@ class  LoginViewModel @Inject constructor(
     private fun authenticate() {
         viewModelScope.launch {
             state = state.copy(isLoading = true)
-            delay(2000L)
+            delay(1000L)
             val result = authenticateUseCase()
             resultChannel.send(result)
             state = state.copy(isLoading = false)

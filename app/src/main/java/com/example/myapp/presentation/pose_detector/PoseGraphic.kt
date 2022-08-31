@@ -250,6 +250,37 @@ fun DetectedPose(
         drawText(Constants.text,1)
         drawText("Count:" +Constants.counter.toString(),2)*/
 
+        /*Sitting down arm exercise
+        val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
+        val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
+        val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+        val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
+
+        if(angle23_25_27 >160) {
+            Constants.counter = 0
+            Constants.text = "Sit down!"
+        }
+        else if((yRightHand >0 || yLeftHand >0) && Constants.stage != "down") {
+            Constants.text = "Stretch yours arms above your head!"
+            Constants.isCount = false
+        }
+        else if(angle12_14_16 < 150 && Constants.stage != "down")
+            Constants.text = "Stretch your hands more!"
+        else if(angle12_14_16 >=150 && !Constants.isCount ) {
+            Constants.isCount = true
+            Constants.stage = "down"
+            Constants.text = "Nice!"
+        }
+        else{
+            if(angle12_14_16 > 170 && Constants.stage == "down") {
+                Constants.stage = "up"
+                Constants.counter++
+            }
+        }
+        drawText(Constants.text,1)
+        drawText("Count:" +Constants.counter.toString(),2)
+         */
+
         drawLine(nose, leftEyeInner, whitePaint)
         drawLine( leftEyeInner, leftEye, whitePaint)
         drawLine( leftEye, leftEyeOuter, whitePaint)

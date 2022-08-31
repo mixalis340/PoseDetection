@@ -112,8 +112,10 @@ fun RegisterScreen(
                     color = MaterialTheme.colors.onPrimary
                 )
             }
-            if(state.isLoading)
-                CircularProgressIndicator()
+            if(state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier
+                    .align(Alignment.CenterHorizontally))
+            }
 
         }
         Text(
