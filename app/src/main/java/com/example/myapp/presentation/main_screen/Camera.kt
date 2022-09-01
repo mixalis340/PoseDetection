@@ -1,6 +1,7 @@
 package com.example.myapp.presentation.main_screen
 
 import android.Manifest
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
@@ -20,9 +22,9 @@ import com.google.accompanist.permissions.rememberPermissionState
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun Camera(
-    navController: NavController
+    navController: NavController,
+    viewModel: CameraViewModel = hiltViewModel()
 ) {
-
     val permissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -48,7 +50,7 @@ fun Camera(
     ) {
         when {
             permissionState.hasPermission -> {
-                CameraView(navController)
+                CameraView(navController, viewModel.getName())
             }
             permissionState.shouldShowRationale -> {
                 Text(text = "Camera permission is needed to do exercises!")

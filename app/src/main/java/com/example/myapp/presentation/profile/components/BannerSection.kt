@@ -3,7 +3,6 @@ package com.example.myapp.presentation.profile.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,7 +21,7 @@ fun BannerSection(
     )
     {
         Image(
-            painter = painterResource(id = R.drawable.pose_1),
+            painter = painterResource(id = R.drawable.pose_banner),
             contentDescription = stringResource(id = R.string.banner_image),
             modifier = Modifier.fillMaxSize(),
             )

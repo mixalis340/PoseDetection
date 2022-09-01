@@ -39,4 +39,8 @@
     <string name="show_likelihood">Show in-frame likelihood</string>
     <string name="info_likelihood">For each landmark, a measure that indicates \nthe probability that the landmark is within the \nimage frame. The score has a range of 0.0 to 1.0,\nwhere 1.0 indicates high confidence.</string>
     <string name="profile">Profile</string>
+    <string name="squats_exercise">Squats</string>
+    <string name="dumbbell">Dumbbell</string>
+    <string name="arm_exercise">Arm</string>
+    <string name="shoulder_exercise">Shoulder</string>
 </resources>

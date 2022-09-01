@@ -14,16 +14,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapp.R
 import com.example.myapp.presentation.main_screen.models.Exercise
 import com.example.myapp.presentation.ui.theme.MediumGray
 import com.example.myapp.presentation.ui.theme.SpaceMedium
+import com.example.myapp.presentation.util.Screen
 
 @Composable
 fun Exercise(
     exercise: Exercise,
     onExerciseClick: () -> Unit = {},
-    modifier: Modifier
+    navController: NavController
 ) {
     Box(
         modifier = Modifier
@@ -37,9 +39,11 @@ fun Exercise(
                 .background(MediumGray)
         ) {
             Image(
-               painter = exercise.imageUrl,
+                painter = exercise.imageUrl,
                 contentDescription = "Exercise image",
-                modifier = modifier
+                modifier = Modifier.clickable {
+                    navController.navigate(route = Screen.CameraScreen.route + "/${exercise.name}")
+                }
             )
             Column(
                 modifier = Modifier

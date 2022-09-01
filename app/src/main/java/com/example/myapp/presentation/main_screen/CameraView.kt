@@ -50,12 +50,14 @@ import kotlin.coroutines.suspendCoroutine
 
 @Composable
 fun CameraView(
-    navController: NavController
+    navController: NavController,
+    exerciseName: String?
 ) {
     val context = LocalContext.current
     var lensFacing by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK)}
 
   CameraPreviewView(
+      exerciseName,
       navController,
       lensFacing,
   ) { cameraUIAction ->
@@ -72,7 +74,8 @@ fun CameraView(
 
 @Composable
 private fun CameraPreviewView(
-     navController: NavController,
+    exerciseName: String?,
+    navController: NavController,
     lensFacing: Int = CameraSelector.LENS_FACING_BACK,
     cameraUIAction: (CameraUIAction) -> Unit
 ) {
@@ -134,7 +137,7 @@ private fun CameraPreviewView(
                         )
                 )
                 {
-                    DetectedPose(pose = detectedPose, sourceInfo = sourceInfo, true)
+                    DetectedPose(pose = detectedPose, sourceInfo = sourceInfo, true, exerciseName)
                 }
             }
         }

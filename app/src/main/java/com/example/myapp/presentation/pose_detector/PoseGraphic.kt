@@ -19,7 +19,8 @@ import kotlin.math.atan2
 fun DetectedPose(
     pose: Pose?,
     sourceInfo: SourceInfo,
-    showInFrameLikelihood: Boolean
+    showInFrameLikelihood: Boolean,
+    exerciseName: String?
 ) {
     if (pose == null)
         return
@@ -45,7 +46,6 @@ fun DetectedPose(
                 return size.width - landmark.position.x
             return landmark.position.x
         }
-
 
       fun drawPoint(landmark: PoseLandmark, paint: Color) {
           val startX = translate(landmark)
@@ -170,116 +170,119 @@ fun DetectedPose(
                     )
              }
         }
-        /*simple right hand exercise
-        val angle12_14_16 = getAngle(rightShoulder,rightElbow,rightWrist)
-        val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
+        if(exerciseName == "Squats") {
+            // squats exercise
+            val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
+            val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
+            val shoulderDistance = leftShoulder.position.x - rightShoulder.position.x
+            val footDistance = leftAnkle!!.position.x - rightAnkle!!.position.x
+            val ratio = footDistance/shoulderDistance
+            val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+            val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
-        if(angle24_26_28 < 170) {
-            reInitParams()
-            Constants.text = "Stand up"
-        }
-      else  if(angle12_14_16 > 160) {
-            Constants.stage = "down"
-            Constants.text = "Move your wrist close to your arm"
-        }
-
-      else  if(angle12_14_16 < 30 &&   Constants.stage ==  "down") {
-            Constants.stage= "up"
-            Constants.text = "Stretch your arm"
-            Constants.counter++
-        }
-        drawText(Constants.text,1)
-        drawText(Constants.counter.toString(),2)
-        */
-
-        // squats exercise
-        val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
-        val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
-        val shoulderDistance = leftShoulder.position.x - rightShoulder.position.x
-        val footDistance = leftAnkle!!.position.x - rightAnkle!!.position.x
-        val ratio = footDistance/shoulderDistance
-        val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
-        val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
-
-        if(angle24_26_28 < 170 && yLeftHand > 0 ) {
-            Constants.text = "Stand up"
-        }else if(yLeftHand >0 || yRightHand > 0){
-            Constants.text = "Put your hands behind your head"
-            Constants.counter = 0
-        }else if(ratio < 0.5)
-            Constants.text = "Spread your feet shoulder-width apart"
-        else if(angle24_26_28 > 170 ) {
-            Constants.text = "Go down!"
-            Constants.stage = "down"
-        }else {
-               if(angle24_26_28 < 110 && angle23_25_27 < 110 && Constants.stage == "down" ) {
-                   Constants.text = "Nice!"
-                   Constants.stage = "up"
-                   Constants.counter++
-               }
-            }
-
-        drawText(Constants.text,1)
-        drawText("Count:" +Constants.counter.toString(),2)
-
-        /* arm exercise
-        val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
-        val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
-        val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
-
-        if(angle23_25_27 < 170) {
-           reInitParams()
-            Constants.text = "Stand up!"
-        }
-
-        else if(yRightHand>0 && Constants.stage != "down") {
-            Constants.text = "Hold your right arm in your right shoulder height"
-        }
-
-        else{
-            if(angle12_14_16 > 150 && yRightHand<0) {
-                Constants.text = "Nice!"
+            if(angle24_26_28 < 170 && yLeftHand > 0 ) {
+                Constants.text = "Stand up"
+            }else if(yLeftHand >0 || yRightHand > 0){
+                Constants.text = "Put your hands behind your head"
+                Constants.counter = 0
+            }else if(ratio < 0.5)
+                Constants.text = "Spread your feet shoulder-width apart"
+            else if(angle24_26_28 > 170 ) {
+                Constants.text = "Go down!"
                 Constants.stage = "down"
+            }else {
+                if(angle24_26_28 < 110 && angle23_25_27 < 110 && Constants.stage == "down" ) {
+                    Constants.text = "Nice!"
+                    Constants.stage = "up"
+                    Constants.counter++
+                }
             }
-            if(angle12_14_16 > 170 && Constants.stage == "down" && yRightHand>0) {
-                Constants.stage = "up"
+
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.counter.toString(),2)
+        }
+        if(exerciseName == "Dumbbell") {
+            val angle12_14_16 = getAngle(rightShoulder,rightElbow,rightWrist)
+            val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
+
+            if(angle24_26_28 < 170) {
+                reInitParams()
+                Constants.text = "Stand up"
+            }
+            else  if(angle12_14_16 > 160) {
+                Constants.stage = "down"
+                Constants.text = "Move your wrist close to your arm"
+            }
+
+            else  if(angle12_14_16 < 30 &&   Constants.stage ==  "down") {
+                Constants.stage= "up"
+                Constants.text = "Stretch your arm"
                 Constants.counter++
             }
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.counter.toString(),2)
         }
 
-        drawText(Constants.text,1)
-        drawText("Count:" +Constants.counter.toString(),2)*/
+        if(exerciseName == "Shoulder"){
+            val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
+            val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+            val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
 
-        /*Sitting down arm exercise
-        val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
-        val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
-        val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
-        val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
-
-        if(angle23_25_27 >160) {
-            Constants.counter = 0
-            Constants.text = "Sit down!"
-        }
-        else if((yRightHand >0 || yLeftHand >0) && Constants.stage != "down") {
-            Constants.text = "Stretch yours arms above your head!"
-            Constants.isCount = false
-        }
-        else if(angle12_14_16 < 150 && Constants.stage != "down")
-            Constants.text = "Stretch your hands more!"
-        else if(angle12_14_16 >=150 && !Constants.isCount ) {
-            Constants.isCount = true
-            Constants.stage = "down"
-            Constants.text = "Nice!"
-        }
-        else{
-            if(angle12_14_16 > 170 && Constants.stage == "down") {
-                Constants.stage = "up"
-                Constants.counter++
+            if(angle23_25_27 < 170) {
+                reInitParams()
+                Constants.text = "Stand up!"
             }
+
+            else if(yRightHand>0 && Constants.stage != "down") {
+                Constants.text = "Hold your right arm in your right shoulder height"
+            }
+
+            else{
+                if(angle12_14_16 > 150 && yRightHand<0) {
+                    Constants.text = "Nice!"
+                    Constants.stage = "down"
+                }
+                if(angle12_14_16 > 170 && Constants.stage == "down" && yRightHand>0) {
+                    Constants.stage = "up"
+                    Constants.counter++
+                }
+            }
+
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.counter.toString(),2)
+
         }
-        drawText(Constants.text,1)
-        drawText("Count:" +Constants.counter.toString(),2)
-         */
+
+        if(exerciseName == "Arm"){
+            val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
+            val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
+            val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
+            val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
+
+            if(angle23_25_27 >160) {
+                Constants.counter = 0
+                Constants.text = "Sit down!"
+            }
+            else if((yRightHand >0 || yLeftHand >0) && Constants.stage != "down") {
+                Constants.text = "Stretch yours arms above your head!"
+                Constants.isCount = false
+            }
+            else if(angle12_14_16 < 150 && Constants.stage != "down")
+                Constants.text = "Stretch your hands more!"
+            else if(angle12_14_16 >=150 && !Constants.isCount ) {
+                Constants.isCount = true
+                Constants.stage = "down"
+                Constants.text = "Nice!"
+            }
+            else{
+                if(angle12_14_16 > 170 && Constants.stage == "down") {
+                    Constants.stage = "up"
+                    Constants.counter++
+                }
+            }
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.counter.toString(),2)
+        }
 
         drawLine(nose, leftEyeInner, whitePaint)
         drawLine( leftEyeInner, leftEye, whitePaint)
@@ -341,18 +344,6 @@ fun reInitParams(){
  Constants.isCount = false
 }
 
-fun getAngle(firstPoint: PoseLandmark?, midPoint: PoseLandmark?, lastPoint: PoseLandmark?): Double {
-
-    var angle = Math.toDegrees(atan2(1.0* lastPoint!!.position.y - midPoint!!.position.y,
-               1.0*lastPoint.position.x - midPoint.position.x)
-                - atan2(firstPoint!!.position.y - midPoint.position.y,
-                firstPoint.position.x - midPoint.position.x))
-    angle = Math.abs(angle) // Angle should never be negative
-    if(angle > 180)
-        angle = 360.0 - angle // Always get the acute representation of the angle
-
-    return  angle
-}
 
 
 
