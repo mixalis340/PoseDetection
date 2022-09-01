@@ -39,7 +39,7 @@ fun MainScreen(
                     exercise = com.example.myapp.presentation.main_screen.models.Exercise(
                         name = stringResource(id = R.string.squats_exercise),
                         imageUrl = painterResource(id = R.drawable.squats_exercise),
-                        description = "Start your squats exercise now!"
+                        description = "Start your squats exercise like the picture above!"
                     ),
                  navController = navController
                 ) }
@@ -48,7 +48,7 @@ fun MainScreen(
                     exercise = com.example.myapp.presentation.main_screen.models.Exercise(
                         name = stringResource(id = R.string.dumbbell),
                         imageUrl = painterResource(id = R.drawable.dumbbell_exercise),
-                        description = "Start your dumbbell exercise now!"
+                        description = "Start your dumbbell exercise like the picture above!"
                     ),
                   navController = navController
                 )
@@ -58,7 +58,7 @@ fun MainScreen(
                     exercise = com.example.myapp.presentation.main_screen.models.Exercise(
                         name = stringResource(id = R.string.shoulder_exercise),
                         imageUrl = painterResource(id = R.drawable.shoulder_exercise),
-                        description = "Start your shoulder exercise now!"
+                        description = "Start your shoulder exercise like the picture above!"
                     ),
                     navController = navController
                 )
@@ -68,7 +68,17 @@ fun MainScreen(
                     exercise = com.example.myapp.presentation.main_screen.models.Exercise(
                         name = stringResource(id = R.string.arm_exercise),
                         imageUrl = painterResource(id = R.drawable.arm_lift_exercise),
-                        description = "Start your arm lift exercise now!"
+                        description = "Start your arm lift exercise like the picture above!"
+                    ),
+                    navController = navController
+                )
+            }
+            item {
+                Exercise(
+                    exercise = com.example.myapp.presentation.main_screen.models.Exercise(
+                        name = stringResource(id = R.string.leg_exercise),
+                        imageUrl = painterResource(id = R.drawable.leg_exercise),
+                        description = "Start your leg lift exercise like the picture above!"
                     ),
                     navController = navController
                 )
