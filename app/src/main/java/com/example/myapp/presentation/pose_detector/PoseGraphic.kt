@@ -171,60 +171,20 @@ fun DetectedPose(
              }
         }
         if(exerciseName == "Squats") {
-            // squats exercise
             val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
             val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
             val shoulderDistance = leftShoulder.position.x - rightShoulder.position.x
             val footDistance = leftAnkle!!.position.x - rightAnkle!!.position.x
-            val ratio = footDistance/shoulderDistance
             val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
-            if(angle24_26_28 < 170 && yLeftHand > 0 ) {
-                reInitParams()
-                Constants.text = "Stand up"
-            }else if(yLeftHand >0 || yRightHand > 0){
-                reInitParams()
-                Constants.text = "Put your hands behind your head"
-            }else if(ratio < 0.5){
-                reInitParams()
-                Constants.text = "Spread your feet shoulder-width apart"
-            }
-            else if(angle24_26_28 > 170 ) {
-                Constants.text = "Go down!"
-                Constants.stage = "down"
-            }else {
-                if(angle24_26_28 < 110 && angle23_25_27 < 110 && Constants.stage == "down" ) {
-                    Constants.text = "Nice!"
-                    Constants.stage = "up"
-                    Constants.counter++
-                }
-            }
-
-            drawText(Constants.text,1)
-            drawText("Count:" +Constants.counter.toString(),2)
+            squatsClassification(yRightHand, yLeftHand, shoulderDistance, footDistance, angle23_25_27, angle24_26_28)
         }
         if(exerciseName == "Dumbbell") {
             val angle12_14_16 = getAngle(rightShoulder,rightElbow,rightWrist)
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
-            if(angle24_26_28 < 170) {
-                reInitParams()
-                Constants.text = "Stand up"
-            }
-            else  if(angle12_14_16 > 160) {
-                Constants.stage = "down"
-                Constants.text = "Move your wrist close to your arm"
-            }
-
-            else  if(angle12_14_16 < 30 &&   Constants.stage ==  "down") {
-                Constants.stage= "up"
-                Constants.text = "Stretch your arm"
-                Constants.counter++
-            }
-
-            drawText(Constants.text,1)
-            drawText("Count:" +Constants.counter.toString(),2)
+            dumbbellClassification(angle12_14_16, angle24_26_28)
         }
 
         if(exerciseName == "Shoulder"){
@@ -232,61 +192,17 @@ fun DetectedPose(
             val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
             val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
 
-            if(angle23_25_27 < 170) {
-                reInitParams()
-                Constants.text = "Stand up!"
-            }
-
-            else if(yRightHand>0 && Constants.stage != "down") {
-                Constants.text = "Hold your right arm in your right shoulder height"
-            }
-
-            else{
-                if(angle12_14_16 > 150 && yRightHand<0) {
-                    Constants.text = "Nice!"
-                    Constants.stage = "down"
-                }
-                if(angle12_14_16 > 170 && Constants.stage == "down" && yRightHand>0) {
-                    Constants.stage = "up"
-                    Constants.counter++
-                }
-            }
-
-            drawText(Constants.text,1)
-            drawText("Count:" +Constants.counter.toString(),2)
-
+            shoulderClassification(yRightHand, angle12_14_16, angle23_25_27)
         }
 
         if(exerciseName == "Arm"){
             val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
-            val yLeftHand= leftWrist!!.position.y - leftShoulder!!.position.y
+            val yLeftHand = leftWrist!!.position.y - leftShoulder!!.position.y
             val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
             val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
 
-            if(angle23_25_27 >160) {
-                reInitParams()
-                Constants.text = "Sit down!"
-            }
-            else if((yRightHand >0 || yLeftHand >0) && Constants.stage != "down") {
-                Constants.text = "Stretch yours arms above your head!"
-                Constants.isCount = false
-            }
-            else if(angle12_14_16 < 150 && Constants.stage != "down")
-                Constants.text = "Stretch your hands more!"
-            else if(angle12_14_16 >=150 && !Constants.isCount ) {
-                Constants.isCount = true
-                Constants.stage = "down"
-                Constants.text = "Nice!"
-            }
-            else{
-                if(angle12_14_16 > 170 && Constants.stage == "down") {
-                    Constants.stage = "up"
-                    Constants.counter++
-                }
-            }
+            armClassification(yRightHand, yLeftHand, angle23_25_27, angle12_14_16)
 
-            drawText(Constants.text,1)
-            drawText("Count:" +Constants.counter.toString(),2)
         }
 
         if(exerciseName == "Leg"){
@@ -294,28 +210,11 @@ fun DetectedPose(
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
             val angle12_24_26 = getAngle(rightShoulder, rightHip, rightKnee)
 
-            if(angle23_25_27 < 160) {
-                reInitParams()
-                Constants.text = "Stand up!"
-            }
-            else if(angle12_24_26 > 160 && angle24_26_28 > 150){
-                Constants.stage = "up"
-                Constants.text = "Lift your right leg"
-            }
-            else {
-                if(angle12_24_26 < 140 && Constants.stage == "up" && angle24_26_28 > 150){
-                    Constants.stage = "down"
-                    Constants.text = "Nice!"
-                    Constants.counter++
-                }
-                else if(angle24_26_28 < 150 && Constants.stage == "up") {
-                    Constants.text = "Stretch your leg more!"
-                }
-            }
-
-            drawText(Constants.text,1)
-            drawText("Count: " +Constants.counter.toString(),2)
+            legClassification(angle23_25_27, angle24_26_28, angle12_24_26)
         }
+
+        drawText(Constants.text,1)
+        drawText("Count:" +Constants.counter.toString(),2)
 
         drawLine(nose, leftEyeInner, whitePaint)
         drawLine( leftEyeInner, leftEye, whitePaint)
