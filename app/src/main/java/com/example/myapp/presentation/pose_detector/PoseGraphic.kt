@@ -1,6 +1,7 @@
 package com.example.myapp.presentation.pose_detector
 
 import android.graphics.Paint
+import android.graphics.Typeface
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,7 +14,6 @@ import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 
 import java.util.*
-import kotlin.math.atan2
 
 @Composable
 fun DetectedPose(
@@ -41,21 +41,16 @@ fun DetectedPose(
 
         val needToMirror = sourceInfo.isImageFlipped
 
-        fun translate(landmark: PoseLandmark): Float {
-            if(needToMirror)
-                return size.width - landmark.position.x
-            return landmark.position.x
-        }
 
       fun drawPoint(landmark: PoseLandmark, paint: Color) {
-          val startX = translate(landmark)
+          val startX = translate(landmark, size.width, needToMirror)
           val startY = landmark.position.y
           drawCircle(paint, Constants.DOT_RADIUS, center = Offset(startX,startY))
         }
 
-        for (landmark in landmarks) {
+        for (landmark in landmarks)
             drawPoint(landmark, whitePaint)
-        }
+
 
         val nose = pose.getPoseLandmark(PoseLandmark.NOSE)
         val leftEyeInner = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_INNER)
@@ -137,9 +132,9 @@ fun DetectedPose(
             if(startLandmark == null || endLandmark == null)
                 return
 
-            val startX = translate(startLandmark)
+            val startX = translate(startLandmark, size.width, needToMirror)
             val startY = startLandmark.position.y
-            val endX = translate(endLandmark)
+            val endX = translate(endLandmark, size.width, needToMirror)
             val endY = endLandmark.position.y
 
             val avgZInImagePixel = (startLandmark.position3D.z + endLandmark.position3D.z) / 2
@@ -166,6 +161,7 @@ fun DetectedPose(
                             textSize = 25.0f
                             color = 0xFFEEEEEE.toInt()
                             textAlign = Paint.Align.CENTER
+                            typeface = Typeface.DEFAULT_BOLD
                         }
                     )
              }
@@ -202,7 +198,6 @@ fun DetectedPose(
             val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
 
             armClassification(yRightHand, yLeftHand, angle23_25_27, angle12_14_16)
-
         }
 
         if(exerciseName == "Leg"){
@@ -258,7 +253,7 @@ fun DetectedPose(
                 drawContext.canvas.nativeCanvas.apply {
                     drawText(
                         String.format(Locale.US,"%.2f",landmark.inFrameLikelihood),
-                        translate(landmark),
+                        translate(landmark, size.width, needToMirror),
                         landmark.position.y,
                         Paint().apply {
                             textSize = 10.0f
@@ -270,6 +265,13 @@ fun DetectedPose(
         }
     }
 }
+
+fun translate(landmark: PoseLandmark, size: Float, needToMirror: Boolean): Float {
+    if(needToMirror)
+        return size - landmark.position.x
+    return landmark.position.x
+}
+
 fun reInitParams(){
  Constants.text = ""
  Constants.stage = "none"

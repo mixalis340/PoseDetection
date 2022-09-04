@@ -12,10 +12,12 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
+import com.example.myapp.R
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 
@@ -53,10 +55,10 @@ fun Camera(
                 CameraView(navController, viewModel.getName())
             }
             permissionState.shouldShowRationale -> {
-                Text(text = "Camera permission is needed to do exercises!")
+                Text(text = stringResource(id = R.string.camera_rationale))
             }
             permissionState.isPermanentlyDenied() -> {
-                Text(text = "Camera permission was permanently denied.\r\nYou can enable it in the app settings.")
+                Text(text = stringResource(id = R.string.camera_permanently_denied))
             }
         }
     }

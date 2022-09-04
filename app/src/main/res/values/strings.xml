@@ -44,4 +44,11 @@
     <string name="arm_exercise">Arm</string>
     <string name="shoulder_exercise">Shoulder</string>
     <string name="leg_exercise">Leg</string>
+    <string name="squats_description">Start your squats exercise like the picture above!</string>
+    <string name="dumbbell_description">Start your dumbbell exercise like the picture above!</string>
+    <string name="shoulder_description">Start your shoulder exercise like the picture above!</string>
+    <string name="arm_description">Start your arm lift exercise like the picture above!</string>
+    <string name="leg_description">Start your leg lift exercise like the picture above!</string>
+    <string name="camera_rationale">Camera permission is needed to do exercises!</string>
+    <string name="camera_permanently_denied">Camera permission was permanently denied.\nYou can enable it in the app settings.</string>
 </resources>
