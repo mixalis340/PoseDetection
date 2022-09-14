@@ -1,4 +1,4 @@
-package com.example.myapp.presentation.main_screen
+package com.example.myapp.presentation.camera
 
 sealed class CameraUIAction {
     object OnSwitchCameraClick : CameraUIAction()

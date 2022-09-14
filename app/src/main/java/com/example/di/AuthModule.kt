@@ -3,7 +3,7 @@ package com.example.di
 import android.content.SharedPreferences
 import com.example.myapp.data.remote.AuthApi
 import com.example.myapp.domain.repository.AuthRepository
-import com.example.myapp.domain.repository.AuthRepositoryImpl
+import com.example.myapp.data.repository.AuthRepositoryImpl
 import com.example.myapp.domain.use_case.AuthenticateUseCase
 import com.example.myapp.domain.use_case.LoginUseCase
 import com.example.myapp.domain.use_case.RegisterUseCase
@@ -14,7 +14,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module

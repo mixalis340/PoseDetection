@@ -175,12 +175,17 @@ fun DetectedPose(
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
             squatsClassification(yRightHand, yLeftHand, shoulderDistance, footDistance, angle23_25_27, angle24_26_28)
+
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.squatsCounter.toString(),2)
         }
         if(exerciseName == "Dumbbell") {
             val angle12_14_16 = getAngle(rightShoulder,rightElbow,rightWrist)
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
             dumbbellClassification(angle12_14_16, angle24_26_28)
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.dumbbellCounter.toString(),2)
         }
 
         if(exerciseName == "Shoulder"){
@@ -189,6 +194,8 @@ fun DetectedPose(
             val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
 
             shoulderClassification(yRightHand, angle12_14_16, angle23_25_27)
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.shoulderCounter.toString(),2)
         }
 
         if(exerciseName == "Arm"){
@@ -198,6 +205,8 @@ fun DetectedPose(
             val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
 
             armClassification(yRightHand, yLeftHand, angle23_25_27, angle12_14_16)
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.armCounter.toString(),2)
         }
 
         if(exerciseName == "Leg"){
@@ -206,10 +215,11 @@ fun DetectedPose(
             val angle12_24_26 = getAngle(rightShoulder, rightHip, rightKnee)
 
             legClassification(angle23_25_27, angle24_26_28, angle12_24_26)
+            drawText(Constants.text,1)
+            drawText("Count:" +Constants.legCounter.toString(),2)
         }
 
-        drawText(Constants.text,1)
-        drawText("Count:" +Constants.counter.toString(),2)
+
 
         drawLine(nose, leftEyeInner, whitePaint)
         drawLine( leftEyeInner, leftEye, whitePaint)
@@ -273,10 +283,14 @@ fun translate(landmark: PoseLandmark, size: Float, needToMirror: Boolean): Float
 }
 
 fun reInitParams(){
- Constants.text = ""
- Constants.stage = "none"
- Constants.counter = 0
- Constants.isCount = false
+    Constants.text = ""
+    Constants.stage = "none"
+    Constants.squatsCounter = 0
+    Constants.dumbbellCounter = 0
+    Constants.shoulderCounter = 0
+    Constants.armCounter = 0
+    Constants.legCounter = 0
+    Constants.isCount = false
 }
 
 

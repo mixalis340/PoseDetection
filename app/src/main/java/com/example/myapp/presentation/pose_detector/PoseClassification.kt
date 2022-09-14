@@ -23,7 +23,7 @@ import com.example.myapp.Constants
             if(angle24_26_28 < 110 && angle23_25_27 < 110 && Constants.stage == "down" ) {
                 Constants.text = "Nice!"
                 Constants.stage = "up"
-                Constants.counter++
+                Constants.squatsCounter++
             }
         }
     }
@@ -41,7 +41,7 @@ import com.example.myapp.Constants
         else  if(angle12_14_16 < 30 &&   Constants.stage ==  "down") {
             Constants.stage= "up"
             Constants.text = "Stretch your arm"
-            Constants.counter++
+            Constants.dumbbellCounter++
         }
     }
 
@@ -62,13 +62,13 @@ import com.example.myapp.Constants
             }
             if(angle12_14_16 > 170 && Constants.stage == "down" && yRightHand>0) {
                 Constants.stage = "up"
-                Constants.counter++
+                Constants.shoulderCounter++
             }
         }
     }
 
     fun armClassification(yRightHand: Float, yLeftHand: Float, angle23_25_27:Double, angle12_14_16: Double) {
-        if(angle23_25_27 >160) {
+        if(angle23_25_27 > 160) {
             reInitParams()
             Constants.text = "Sit down!"
         }
@@ -86,7 +86,7 @@ import com.example.myapp.Constants
         else{
             if(angle12_14_16 > 170 && Constants.stage == "down") {
                 Constants.stage = "up"
-                Constants.counter++
+                Constants.armCounter++
             }
         }
     }
@@ -104,7 +104,7 @@ import com.example.myapp.Constants
             if(angle12_24_26 < 140 && Constants.stage == "up" && angle24_26_28 > 150){
                 Constants.stage = "down"
                 Constants.text = "Nice!"
-                Constants.counter++
+                Constants.legCounter++
             }
             else if(angle24_26_28 < 150 && Constants.stage == "up") {
                 Constants.text = "Stretch your leg more!"

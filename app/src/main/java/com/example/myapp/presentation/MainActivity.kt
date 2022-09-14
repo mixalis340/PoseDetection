@@ -43,7 +43,6 @@ class MainActivity : ComponentActivity() {
                             if(navBackStackEntry?.destination?.route in listOf(
                                     Screen.MainScreen.route,
                                     Screen.ProfileScreen.route
-                                    //"${Screen.ProfileScreen.route}?userId={userId}"
                             )) {
                                 BottomNavigationBar(
                                     items = listOf(

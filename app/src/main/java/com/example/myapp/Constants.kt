@@ -11,12 +11,17 @@ object Constants {
     const val KEY_USER_ID = "userId"
 
 
-    const val KEY_FRAME_LIKELIHOOD = "Saved_Frame_in_likelihood"
+
     const val DOT_RADIUS = 3.0f
 
     const val STROKE_WIDTH = 3.5f
 
-    var counter = 0
+    var squatsCounter = 0
+    var dumbbellCounter = 0
+    var shoulderCounter = 0
+    var armCounter = 0
+    var legCounter = 0
+
     var text = ""
     var stage = "none"
     var isCount = false

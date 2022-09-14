@@ -1,4 +1,4 @@
-package com.example.myapp.presentation.main_screen
+package com.example.myapp.presentation.camera
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

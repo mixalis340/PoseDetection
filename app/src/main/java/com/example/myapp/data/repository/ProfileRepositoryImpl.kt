@@ -1,4 +1,4 @@
-package com.example.myapp.domain.repository
+package com.example.myapp.data.repository
 
 import android.content.SharedPreferences
 import android.net.Uri
@@ -8,8 +8,9 @@ import com.example.myapp.R
 import com.example.myapp.Resource
 import com.example.myapp.SimpleResource
 import com.example.myapp.data.remote.ProfileApi
-import com.example.myapp.data.request.CreateAccountRequest
 import com.example.myapp.data.request.UpdateProfileData
+import com.example.myapp.domain.repository.Profile
+import com.example.myapp.domain.repository.ProfileRepository
 import com.example.myapp.presentation.UiText
 import com.google.gson.Gson
 import okhttp3.MultipartBody

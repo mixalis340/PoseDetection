@@ -1,4 +1,4 @@
-package com.example.myapp.presentation.main_screen
+package com.example.myapp.presentation.camera
 
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState

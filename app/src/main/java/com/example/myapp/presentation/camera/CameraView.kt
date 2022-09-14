@@ -1,4 +1,4 @@
-package com.example.myapp.presentation.main_screen
+package com.example.myapp.presentation.camera
 
 import android.content.Context
 import android.util.Log
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.FlipCameraAndroid
 import androidx.compose.material.icons.sharp.Settings
@@ -31,17 +30,13 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.myapp.R
 import com.example.myapp.presentation.pose_detector.DetectedPose
 import com.example.myapp.presentation.pose_detector.PoseDetectorProcessor
 import com.example.myapp.presentation.pose_detector.SourceInfo
-import com.example.myapp.presentation.settings.SettingsViewModel
 import com.example.myapp.presentation.util.Screen
 import com.google.android.gms.tasks.TaskExecutors
-import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.pose.Pose
 import kotlin.coroutines.resume
@@ -158,20 +153,14 @@ fun CameraControls(cameraUIAction: (CameraUIAction) -> Unit, navController: NavC
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.surface),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         CameraControl(
             Icons.Sharp.FlipCameraAndroid,
             R.string.icn_camera_view_switch_camera_content_description,
-            modifier= Modifier.size(50.dp),
+            modifier= Modifier.size(55.dp),
             onClick = { cameraUIAction(CameraUIAction.OnSwitchCameraClick) }
-        )
-        CameraControl(
-            Icons.Sharp.Settings,
-            R.string.icn_camera_view_settings,
-            modifier= Modifier.size(50.dp),
-            onClick = {navController.navigate(Screen.SettingsScreen.route)}
         )
     }
 }

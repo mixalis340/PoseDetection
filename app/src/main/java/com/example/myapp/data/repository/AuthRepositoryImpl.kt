@@ -1,4 +1,4 @@
-package com.example.myapp.domain.repository
+package com.example.myapp.data.repository
 
 import android.content.SharedPreferences
 import com.example.myapp.Constants
@@ -8,8 +8,8 @@ import com.example.myapp.SimpleResource
 import com.example.myapp.data.remote.AuthApi
 import com.example.myapp.data.request.CreateAccountRequest
 import com.example.myapp.data.request.LoginRequest
+import com.example.myapp.domain.repository.AuthRepository
 import com.example.myapp.presentation.UiText
-import com.example.myapp.presentation.login.LoginScreen
 import retrofit2.HttpException
 import java.io.IOException
 

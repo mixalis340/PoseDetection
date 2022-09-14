@@ -2,9 +2,8 @@ package com.example.di
 
 import android.content.SharedPreferences
 import com.example.myapp.data.remote.ProfileApi
-import com.example.myapp.domain.repository.Profile
 import com.example.myapp.domain.repository.ProfileRepository
-import com.example.myapp.domain.repository.ProfileRepositoryImpl
+import com.example.myapp.data.repository.ProfileRepositoryImpl
 import com.example.myapp.domain.use_case.GetProfileUseCase
 import com.example.myapp.domain.use_case.LogoutUseCase
 import com.example.myapp.domain.use_case.ProfileUseCases
