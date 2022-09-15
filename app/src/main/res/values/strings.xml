@@ -51,4 +51,17 @@
     <string name="leg_description">Start your leg lift exercise like the picture above!</string>
     <string name="camera_rationale">Camera permission is needed to do exercises!</string>
     <string name="camera_permanently_denied">Camera permission was permanently denied.\nYou can enable it in the app settings.</string>
+    <string name="stand_up">Stand up!</string>
+    <string name="hands_behind_head">Put your hands behind your head</string>
+    <string name="spread_your_feet">Spread your feet shoulder-width apart</string>
+    <string name="go_down">Go down!</string>
+    <string name="nice">Nice!</string>
+    <string name="more_wrist_to_arm">Move your wrist close to your arm</string>
+    <string name="stretch_arm">Stretch your arm</string>
+    <string name="hold_right_arm_up">Hold your right arm in your right shoulder height</string>
+    <string name="sit_down">Sit down!</string>
+    <string name="stretch_arms_above_head">Stretch yours arms above your head!</string>
+    <string name="stretch_hands_more">Stretch your hands more!</string>
+    <string name="lift_right_leg">Lift your right leg</string>
+    <string name="strech_leg_more">Stretch your leg more!</string>
 </resources>

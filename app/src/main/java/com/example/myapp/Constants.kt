@@ -1,5 +1,7 @@
 package com.example.myapp
 
+import com.example.myapp.presentation.UiText
+
 object Constants {
     const val MIN_USERNAME_LENGTH = 3
     const val MIN_PASSWORD_LENGTH = 4
@@ -22,7 +24,7 @@ object Constants {
     var armCounter = 0
     var legCounter = 0
 
-    var text = ""
+    var text : UiText? = null
     var stage = "none"
     var isCount = false
 }

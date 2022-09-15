@@ -7,7 +7,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.platform.LocalContext
 import com.example.myapp.Constants
+import com.example.myapp.presentation.UiText
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.primitives.Ints
 
 import com.google.mlkit.vision.pose.Pose
@@ -30,6 +32,7 @@ fun DetectedPose(
     if(landmarks.isEmpty())
         return
 
+    val context = LocalContext.current
     androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize() ) {
 
         val whitePaint = Color.White
@@ -147,14 +150,13 @@ fun DetectedPose(
                 strokeWidth = Constants.STROKE_WIDTH
             )
         }
-
         fun drawText(
-            text: String,
+            text: String?,
             line: Int
         ) {
             drawContext.canvas.nativeCanvas.apply {
                     drawText(
-                        text,
+                        text ?: "",
                         size.width/2,
                         30.0f + 30.0f*line,
                         Paint().apply {
@@ -173,10 +175,9 @@ fun DetectedPose(
             val footDistance = leftAnkle!!.position.x - rightAnkle!!.position.x
             val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
-
             squatsClassification(yRightHand, yLeftHand, shoulderDistance, footDistance, angle23_25_27, angle24_26_28)
 
-            drawText(Constants.text,1)
+            drawText(Constants.text?.asString(context),1)
             drawText("Count:" +Constants.squatsCounter.toString(),2)
         }
         if(exerciseName == "Dumbbell") {
@@ -184,7 +185,7 @@ fun DetectedPose(
             val angle24_26_28 = getAngle(rightHip, rightKnee, rightAnkle)
 
             dumbbellClassification(angle12_14_16, angle24_26_28)
-            drawText(Constants.text,1)
+            drawText(Constants.text?.asString(context),1)
             drawText("Count:" +Constants.dumbbellCounter.toString(),2)
         }
 
@@ -194,7 +195,7 @@ fun DetectedPose(
             val yRightHand = rightWrist!!.position.y - rightShoulder!!.position.y
 
             shoulderClassification(yRightHand, angle12_14_16, angle23_25_27)
-            drawText(Constants.text,1)
+            drawText(Constants.text?.asString(context),1)
             drawText("Count:" +Constants.shoulderCounter.toString(),2)
         }
 
@@ -203,9 +204,10 @@ fun DetectedPose(
             val yLeftHand = leftWrist!!.position.y - leftShoulder!!.position.y
             val angle23_25_27 = getAngle(leftHip, leftKnee, leftAnkle)
             val angle12_14_16 = getAngle(rightShoulder, rightElbow, rightWrist)
+            val angle11_13_15 = getAngle(leftShoulder, leftElbow, leftWrist)
 
-            armClassification(yRightHand, yLeftHand, angle23_25_27, angle12_14_16)
-            drawText(Constants.text,1)
+            armClassification(yRightHand, yLeftHand, angle23_25_27, angle12_14_16, angle11_13_15)
+            drawText(Constants.text?.asString(context),1)
             drawText("Count:" +Constants.armCounter.toString(),2)
         }
 
@@ -215,7 +217,7 @@ fun DetectedPose(
             val angle12_24_26 = getAngle(rightShoulder, rightHip, rightKnee)
 
             legClassification(angle23_25_27, angle24_26_28, angle12_24_26)
-            drawText(Constants.text,1)
+            drawText(Constants.text?.asString(context),1)
             drawText("Count:" +Constants.legCounter.toString(),2)
         }
 
@@ -283,7 +285,7 @@ fun translate(landmark: PoseLandmark, size: Float, needToMirror: Boolean): Float
 }
 
 fun reInitParams(){
-    Constants.text = ""
+    Constants.text = null
     Constants.stage = "none"
     Constants.squatsCounter = 0
     Constants.dumbbellCounter = 0
